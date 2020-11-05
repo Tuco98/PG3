@@ -20,7 +20,7 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Override
 	@Transactional
 	public void saveAScheme(Scheme scheme) {
@@ -37,57 +37,57 @@ public class NspRepositoryImpl implements NspRepository {
 	@Override
 	public List<Scheme> fetchAllSchemes() {
 		return em.createNamedQuery("fetchAllSchemes").getResultList();
-		
+
 	}
 
 	@Override
 	public long saveAnInstitute(Institute institute) {
-		// TODO Auto-generated method stub
-		return 0;
+		Institute ins = em.merge(institute);
+		return ins.getInstituteId();
 	}
 
 	@Override
 	public Institute findAnInstituteById(long instituteId) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Institute.class, instituteId);
 	}
 
 	@Override
 	public Institute findAnInstituteByInstituteCode(String instituteCode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String jpql = "select i from Institute i where i.instituteCode=:ic";
+		Query query = em.createQuery(jpql, Institute.class);
+		query.setParameter("ic", instituteCode);
+		Institute ins = (Institute) query.getResultList().stream().findFirst().orElse(null);
+		return ins;
 	}
 
 	@Override
 	public List<Institute> fetchAllInstitutes() {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createNamedQuery("fetchAllInstitutes").getResultList();
 	}
 
-	@Override
-	public boolean instituteLogin(long userId, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	/*
+	 * @Override public boolean instituteLogin(long userId, String password) { //
+	 * TODO Auto-generated method stub return false; }
+	 */
 
 	@Override
 	@Transactional
 	public long saveAStudent(Student student) {
-		Student s=em.merge(student);
+		Student s = em.merge(student);
 		return s.getStudentAadharNumber();
 	}
 
 	@Override
 	public Student findAStudentById(long studentId) {
 		return em.find(Student.class, studentId);
-		
+
 	}
 
-	@Override
-	public boolean studentLogin(long aadhar, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	/*
+	 * @Override public boolean studentLogin(long aadhar, String password) { // TODO
+	 * Auto-generated method stub return false; }
+	 */
 
 	@Override
 	public List<Student> fetchAllStudents() {
@@ -106,11 +106,10 @@ public class NspRepositoryImpl implements NspRepository {
 		return null;
 	}
 
-	@Override
-	public boolean nodalLogin(int userId, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	/*
+	 * @Override public boolean nodalLogin(int userId, String password) { // TODO
+	 * Auto-generated method stub return false; }
+	 */
 
 	@Override
 	public long saveAScholarshipForm(ScholarshipForm form) {
@@ -129,10 +128,64 @@ public class NspRepositoryImpl implements NspRepository {
 		return em.createNamedQuery("fetchAllForms").getResultList();
 	}
 
+	/*
+	 * @Override public boolean ministryLogin(int userId, String password) { // TODO
+	 * Auto-generated method stub return false; }
+	 */
 	@Override
-	public boolean ministryLogin(int userId, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<Nodal> fetchAllNodals() {
+		return em.createNamedQuery("fetchAllNodals").getResultList();
+	}
+
+	@Override
+	public boolean isInstitutePresent(long instituteId) {
+		return (Long) em.createQuery("select count(i.id) from Institute i where i.instituteId = :id").setParameter("id", instituteId)
+				.getSingleResult() == 1 ? true : false;
+	}
+
+	@Override
+	public boolean isStudentPresent(long studentId) {
+		return (Long) em.createQuery("select count(s.id) from Student s where s.studentAadharNumber = :id").setParameter("id", studentId)
+				.getSingleResult() == 1 ? true : false;
+	}
+
+	@Override
+	public boolean isNodalPresent(int nodalId) {
+		return (Integer) em.createQuery("select count(n.id) from Nodal n where n.nodalUid = :id").setParameter("id", nodalId)
+				.getSingleResult() == 1 ? true : false;
+	}
+
+	@Override
+	public boolean isMinistryPresent(int ministryId) {
+		return (Integer) em.createQuery("select count(m.id) from Ministry m where m.ministryUid = :id").setParameter("id", ministryId)
+				.getSingleResult() == 1 ? true : false;
+	}
+
+	@Override
+	public Institute findInstituteByIdAndPassword(long instituteId, String password) {
+		String jpql="select i from Institute i where i.institudeId=:id and i.institutePassword=:psw";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("id", instituteId);
+		query.setParameter("psw", password);
+		return (Institute) query.getSingleResult();
+	}
+
+	@Override
+	public Student findStudentByIdAndPassword(long studentId, String password) {
+		String jpql="select s from Student s where s.studentAadharNumber=:id and i.studentPassword=:psw";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("id", studentId);
+		query.setParameter("psw", password);
+		return (Student) query.getSingleResult();
+	}
+
+	@Override
+	public Nodal findNodalByIdAndPassword(long nodalId, String password) {
+		String jpql="select n from Nodal n where n.nodalUid=:id and i.nodalPassword=:psw";
+		Query query=em.createQuery(jpql, Institute.class);
+		query.setParameter("id", nodalId);
+		query.setParameter("psw", password);
+		return (Nodal) query.getSingleResult();
 	}
 
 }

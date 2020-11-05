@@ -24,7 +24,7 @@ public interface NspService {
 
 	public List<Institute> fetchAllInstitutes();
 
-	public boolean instituteLogin(long userId, String password);
+	public Institute instituteLogin(long userId, String password);
 
 	public void instituteUpdatesAStudentStatus(Student student, String status); // doubtful status="Approves/Reject"
 
@@ -44,7 +44,7 @@ public interface NspService {
 
 	public Student getAStudentById(long studentId);
 
-	public boolean studentLogin(long aadhar, String password);
+	public Student studentLogin(long aadhar, String password);
 
 	public List<Student> fetchAllStudents();
 
@@ -56,7 +56,7 @@ public interface NspService {
 
 	public Nodal getANodalById(int nodalUid);
 
-	public boolean nodalLogin(int userId, String password);
+	public Nodal nodalLogin(int userId, String password);
 
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus);
 

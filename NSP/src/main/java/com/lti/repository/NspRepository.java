@@ -25,7 +25,11 @@ public interface NspRepository {
 	
 	public List<Institute> fetchAllInstitutes();
 	
-	public boolean instituteLogin(long userId, String password);
+	public boolean isInstitutePresent(long instituteId);
+	
+	public Institute findInstituteByIdAndPassword(long instituteId, String password);
+	
+//	public boolean instituteLogin(long userId, String password);
 	
 	//These methods will be written in service
 	//public void instituteUpdatesAStudentStatus(long studentId, String status); //doubtful status="Approves/Reject"
@@ -39,9 +43,13 @@ public interface NspRepository {
 	
 	public Student findAStudentById(long studentId);
 	
-	public boolean studentLogin(long aadhar, String password);
+	//public boolean studentLogin(long aadhar, String password);
+	
+	public boolean isStudentPresent(long studentId);
 	
 	public List<Student> fetchAllStudents();
+	
+	public Student findStudentByIdAndPassword(long studentId, String password);
 	
 	//service->public List<Student> fetchStudentsOfParticularInstituteByStatus(long instituteId, String status);
 	
@@ -52,7 +60,13 @@ public interface NspRepository {
 
 	public Nodal findANodalById(int nodalUid);
 	
-	public boolean nodalLogin(int userId, String password);
+	//public boolean nodalLogin(int userId, String password);
+	
+	public boolean isNodalPresent(int nodalId);
+	
+	public Nodal findNodalByIdAndPassword(long nodalId, String password);
+	
+	public List<Nodal> fetchAllNodals();
 	
 	//Needs to be written in service
 	//public void nodalApproveAForm(long formId);
@@ -69,7 +83,9 @@ public interface NspRepository {
 	
 	// Ministry methods
 	
-	public boolean ministryLogin(int userId, String password);
+	//public boolean ministryLogin(int userId, String password);
+	
+	public boolean isMinistryPresent(int ministryId);
 	
 	
 	
