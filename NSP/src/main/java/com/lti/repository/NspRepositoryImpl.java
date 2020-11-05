@@ -2,17 +2,29 @@ package com.lti.repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
 import com.lti.entity.Institute;
 import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
 import com.lti.entity.Student;
 
+@Repository
 public class NspRepositoryImpl implements NspRepository {
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Override
+	@Transactional
 	public void saveAScheme(Scheme scheme) {
 		// TODO Auto-generated method stub
+		em.merge(scheme);
 
 	}
 

@@ -2,14 +2,25 @@ package com.lti.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.lti.entity.Institute;
 import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
 import com.lti.entity.Student;
+import com.lti.repository.NspRepository;
 
+@Service
 public class NspServiceImpl implements NspService {
 
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private NspRepository nspRepo;
+	
 	@Override
 	public void addAScheme(Scheme scheme) {
 		// TODO Auto-generated method stub
