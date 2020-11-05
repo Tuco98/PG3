@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -30,14 +31,13 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public Scheme findAScheme(long schemeUID) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Scheme.class, schemeUID);
 	}
 
 	@Override
 	public List<Scheme> fetchAllSchemes() {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createNamedQuery("fetchAllSchemes").getResultList();
+		
 	}
 
 	@Override
@@ -71,15 +71,16 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
+	@Transactional
 	public long saveAStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
+		Student s=em.merge(student);
+		return s.getStudentAadharNumber();
 	}
 
 	@Override
 	public Student findAStudentById(long studentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Student.class, studentId);
+		
 	}
 
 	@Override
@@ -90,8 +91,7 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public List<Student> fetchAllStudents() {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createNamedQuery("fetchAllStudents").getResultList();
 	}
 
 	@Override
@@ -126,8 +126,7 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public List<ScholarshipForm> fetchAllScholarshipForms() {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createNamedQuery("fetchAllForms").getResultList();
 	}
 
 	@Override

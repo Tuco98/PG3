@@ -9,11 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "tbl_students")
+@NamedQuery(name = "fetchAllStudents", query="select st from Student st")
 public class Student {
 	@Id
 	@Column(name = "student_aadhar_number")

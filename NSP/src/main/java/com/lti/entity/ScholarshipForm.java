@@ -11,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "form_demo") //@Table( name = "tbl_scholarship_form")
+@NamedQuery(name = "fetchAllForms", query="select sf from ScholarshipForm sf")
 public class ScholarshipForm {
 	
 	@Id
