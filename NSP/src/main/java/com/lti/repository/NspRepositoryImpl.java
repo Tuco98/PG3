@@ -96,6 +96,7 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
+	@Transactional
 	public void saveANodal(Nodal nodal) {
 		// TODO Auto-generated method stub
 		em.merge(nodal);
@@ -153,7 +154,7 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public boolean isNodalPresent(int nodalId) {
-		return (Integer) em.createQuery("select count(n.id) from Nodal n where n.nodalUid = :id").setParameter("id", nodalId)
+		return (Long) em.createQuery("select count(n.id) from Nodal n where n.nodalUid = :id").setParameter("id", nodalId)
 				.getSingleResult() == 1 ? true : false;
 	}
 

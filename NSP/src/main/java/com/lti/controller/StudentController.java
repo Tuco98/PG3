@@ -11,6 +11,8 @@ import com.lti.dto.InsLoginStatus;
 import com.lti.dto.InstituteLoginDto;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
+import com.lti.dto.StudentLoginDto;
+import com.lti.dto.StudentLoginStatus;
 import com.lti.entity.Institute;
 import com.lti.entity.Student;
 import com.lti.exception.NspServiceException;
@@ -25,7 +27,7 @@ public class StudentController {
 	private NspService nspService;
 
 	@PostMapping(path = "/registerStudent")
-	public Status addScheme(@RequestBody Student student) {
+	public Status addStudent(@RequestBody Student student) {
 		try {
 			nspService.registerAStudent(student);
 			//Student stu = nspService.getAStudentById(studentId);
@@ -43,15 +45,17 @@ public class StudentController {
 	}
 	
 	@PostMapping("/studentLogin")
-	public Status login(@RequestParam("studentId") long studentId, @RequestParam("psw") String password) {
+	public Status login(@RequestBody StudentLoginDto loginDto) {
 		try {
-			Student student = nspService.studentLogin(studentId, password);
+			Student student = nspService.studentLogin(loginDto.getStudentId(),loginDto.getPassword());
 			//Institute ins = nspService.getAnInstituteById(id);
-			Status loginStatus = new Status();
+			StudentLoginStatus loginStatus = new StudentLoginStatus();
 			loginStatus.setStatus(StatusType.SUCCESS);
 			loginStatus.setMessage("Login Successful!");
 			//loginStatus.setInstituteId(ins.getInstituteId());
 			//loginStatus.setInsName(ins.getInstituteName());
+			loginStatus.setStudentId(student.getStudentAadharNumber());
+			loginStatus.setStudentName(student.getStudentName());
 			return loginStatus;
 		}
 		catch(NspServiceException e) {

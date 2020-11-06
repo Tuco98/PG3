@@ -26,7 +26,7 @@ public class InstituteController {
 	private NspService nspService;
 
 	@PostMapping(path = "/registerInstitute")
-	public Status addScheme(@RequestBody Institute institute) {
+	public Status addInstitute(@RequestBody Institute institute) {
 		try {
 			nspService.registerAnInstitute(institute);
 			

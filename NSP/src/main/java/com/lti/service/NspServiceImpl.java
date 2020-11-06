@@ -173,7 +173,13 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void registerANodal(Nodal nodal) {
-		// TODO Auto-generated method stub
+		if(!nspRepo.isNodalPresent(nodal.getNodalUid())) {
+			nspRepo.saveANodal(nodal);
+			System.out.println("Nodal successfully registered");
+		}
+		else {
+			System.out.println("Registration failed");
+	}
 
 	}
 
@@ -185,13 +191,20 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public Nodal nodalLogin(int userId, String password) {
-		if(nspRepo.isNodalPresent(userId)) {
-			return null;
+		/*
+		 * if(nspRepo.isNodalPresent(userId)) { return null; } else { return
+		 * nspRepo.findNodalByIdAndPassword(userId, password); }
+		 */
+		
+		Nodal nodal=nspRepo.findANodalById(userId);
+		if(nodal.getNodalPassword().equals(password)) {
+			return nodal;
 		}
 		else {
-			return nspRepo.findNodalByIdAndPassword(userId, password);
+			return null;
 		}
 	}
+	
 
 	@Override
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus) {
