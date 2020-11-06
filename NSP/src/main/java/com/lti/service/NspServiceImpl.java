@@ -1,5 +1,6 @@
 package com.lti.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -26,15 +27,15 @@ public class NspServiceImpl implements NspService {
 	
 	@Override
 	public void addAScheme(Scheme scheme) {
-		// TODO Auto-generated method stub
+		
 		nspRepo.saveAScheme(scheme);
 
 	}
 
 	@Override
 	public Scheme findAScheme(long schemeId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nspRepo.findAScheme(schemeId);
 	}
 
 	@Override
@@ -92,27 +93,26 @@ public class NspServiceImpl implements NspService {
 
 	}
 
-	@Override
-	public List<Institute> fetchAllInstitutesByStatus(String status) {
-		return null;
-	}
+	
 
-	@Override
-	public List<Institute> fetchAllInstitutesByNodalStatis(String status) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public void ministryUpdatesAnInstituteStatus(Institute institute, String status) {
-		// TODO Auto-generated method stub
+		institute.setInstituteMinistryApproval(status);
+		nspRepo.saveAnInstitute(institute);
 
 	}
 
 	@Override
 	public List<Institute> fetchAllInstitutesByMinistryStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Institute> institutes=nspRepo.fetchAllInstitutes();
+		List<Institute> ins=new ArrayList<>();
+		for (Institute institute : institutes) {
+			if(institute.getInstituteMinistryApproval().equals(status)) {
+				ins.add(institute);
+			}
+		}
+		return ins;
 	}
 
 	@Override
@@ -161,14 +161,21 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<Student> fetchAllStudents() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nspRepo.fetchAllStudents();
 	}
 
 	@Override
 	public List<Student> fetchStudentsOfParticularInstituteByStatus(long instituteId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Student> students=nspRepo.fetchAllStudents();
+		List<Student> st=new ArrayList<>();
+		
+		for (Student student : students) {
+			if(student.getStudentStatus().equals(status)) {
+				st.add(student);
+			}
+		}
+		return st;
 	}
 
 	@Override
@@ -185,8 +192,8 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public Nodal getANodalById(int nodalUid) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nspRepo.findANodalById(nodalUid);
 	}
 
 	@Override
@@ -208,44 +215,58 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus) {
-		// TODO Auto-generated method stub
+		form.setNodalVerificationStatus(formStatus);
+		nspRepo.saveAScholarshipForm(form);
 
 	}
 
 	@Override
 	public void nodalUpdatesAnInstituteStatus(Institute institute, String status) {
-		// TODO Auto-generated method stub
+		institute.setInstituteNodalOfficerApproval(status);
+		nspRepo.saveAnInstitute(institute);
 
 	}
 
 	@Override
 	public long applyAScholarshipForm(ScholarshipForm form) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return nspRepo.saveAScholarshipForm(form);
 	}
 
 	@Override
 	public ScholarshipForm getAScholarshipFormById(long form_id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nspRepo.findAScholarshipFormById(form_id);
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchAllScholarshipForms() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nspRepo.fetchAllScholarshipForms();
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchAllFormsByInstituteStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ScholarshipForm> forms=nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> sf=new ArrayList<>();
+		for (ScholarshipForm scholarshipForm : forms) {
+			if(scholarshipForm.getInstituteVerificationStatus().equals(status)) {
+				sf.add(scholarshipForm);
+			}
+		}
+		return sf;
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchAllFormsByNodalStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ScholarshipForm> forms=nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> sf=new ArrayList<>();
+		for (ScholarshipForm scholarshipForm : forms) {
+			if(scholarshipForm.getNodalVerificationStatus().equals(status)) {
+				sf.add(scholarshipForm);
+			}
+		}
+		return sf;
 	}
 
 	@Override
@@ -262,8 +283,33 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void ministryUpdatesAFormStatus(ScholarshipForm form, String status) {
-		// TODO Auto-generated method stub
+		form.setMinistryVerificationStatus(status);
+		nspRepo.saveAScholarshipForm(form);
 
+	}
+
+	@Override
+	public List<Institute> fetchAllInstitutesByNodalStatus(String status) {
+		List<Institute> institutes=nspRepo.fetchAllInstitutes();
+		List<Institute> ins=new ArrayList<>();
+		for (Institute institute : institutes) {
+			if(institute.getInstituteNodalOfficerApproval().equals(status)) {
+				ins.add(institute);
+			}
+		}
+		return ins;
+	}
+
+	@Override
+	public List<Institute> fetchAllInstitutesByStatus(boolean status) {
+		List<Institute> institutes=nspRepo.fetchAllInstitutes();
+		List<Institute> ins=new ArrayList<>();
+		for (Institute institute : institutes) {
+			if(institute.isInstituteStatus()==status) {
+				ins.add(institute);
+			}
+		}
+		return ins;
 	}
 
 }

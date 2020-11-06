@@ -30,9 +30,9 @@ public interface NspService {
 
 	public void instituteUpdatesAForm(ScholarshipForm form, String status);
 
-	public List<Institute> fetchAllInstitutesByStatus(String status);
+	public List<Institute> fetchAllInstitutesByStatus(boolean status);
 
-	public List<Institute> fetchAllInstitutesByNodalStatis(String status);
+	public List<Institute> fetchAllInstitutesByNodalStatus(String status);
 	
 	public void ministryUpdatesAnInstituteStatus(Institute institute, String status);
 	
