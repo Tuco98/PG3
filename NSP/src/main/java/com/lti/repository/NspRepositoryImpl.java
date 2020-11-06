@@ -41,6 +41,7 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
+	@Transactional
 	public long saveAnInstitute(Institute institute) {
 		Institute ins = em.merge(institute);
 		return ins.getInstituteId();
@@ -162,12 +163,13 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
-	public Institute findInstituteByIdAndPassword(long instituteId, String password) {
-		String jpql="select i from Institute i where i.institudeId=:id and i.institutePassword=:psw";
-		Query query=em.createQuery(jpql, Institute.class);
-		query.setParameter("id", instituteId);
-		query.setParameter("psw", password);
-		return (Institute) query.getSingleResult();
+	public Long findInstituteByIdAndPassword(long instituteId, String password) {
+
+		return (Long) em
+                .createQuery("select i.instituteId from Institute i where i.institudeId=:id and i.institutePassword=:psw")
+                .setParameter("id", instituteId)
+                .setParameter("psw", password)
+                .getSingleResult();
 	}
 
 	@Override

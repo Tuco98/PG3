@@ -27,7 +27,7 @@ public interface NspRepository {
 	
 	public boolean isInstitutePresent(long instituteId);
 	
-	public Institute findInstituteByIdAndPassword(long instituteId, String password);
+	public Long findInstituteByIdAndPassword(long instituteId, String password);
 	
 //	public boolean instituteLogin(long userId, String password);
 	

@@ -61,13 +61,21 @@ public class NspServiceImpl implements NspService {
 	}
 
 	@Override
-	public Institute instituteLogin(long userId, String password) {
-		if(!nspRepo.isInstitutePresent(userId)) {
-			return null;
+	public Institute instituteLogin(long instituteId, String password) {
+//		if(!nspRepo.isInstitutePresent(userId)) {
+//			return null;
+//		}
+//		else {
+//			return nspRepo.findInstituteByIdAndPassword(userId, password);
+//		}
+		Institute ins = nspRepo.findAnInstituteById(instituteId);
+		if(ins.getInstitutePassword().equals(password)) {
+			return ins;
 		}
 		else {
-			return nspRepo.findInstituteByIdAndPassword(userId, password);
+			return null;
 		}
+		
 	}
 
 	@Override

@@ -46,7 +46,8 @@ public class InstituteController {
 	@PostMapping("/instituteLogin")
 	public InsLoginStatus login(@RequestBody InstituteLoginDto loginDto) {
 		try {
-			Institute ins = nspService.instituteLogin(loginDto.getInstituteId(), loginDto.getPassword());
+			Institute ins= nspService.instituteLogin(loginDto.getInstituteId(), loginDto.getPassword());
+			//Institute ins = nspService.getAnInstituteById(id);
 			InsLoginStatus loginStatus = new InsLoginStatus();
 			loginStatus.setStatus(StatusType.SUCCESS);
 			loginStatus.setMessage("Login Successful!");
