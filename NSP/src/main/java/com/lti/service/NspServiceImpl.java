@@ -12,6 +12,7 @@ import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
 import com.lti.entity.Student;
+import com.lti.exception.NspServiceException;
 import com.lti.repository.NspRepository;
 
 @Service
@@ -115,25 +116,47 @@ public class NspServiceImpl implements NspService {
 	}
 
 	@Override
-	public long registerAStudent(Student student) {
+	public void registerAStudent(Student student) {
 		// TODO Auto-generated method stub
-		return 0;
+		if(!nspRepo.isStudentPresent(student.getStudentAadharNumber())) {
+			student.setStudentStatus("Not Approved");
+			long id = nspRepo.saveAStudent(student);
+			
+			String text="Successfully registered. Your id is "+id;
+            String subject="Registration Confirmation";
+            emailService.sendEmailForNewRegistration(student.getStudentEmail(), text, subject);
+		}
+		else {
+			throw new NspServiceException("Student already registered");
+		}
+		
 	}
 
 	@Override
 	public Student getAStudentById(long studentId) {
 		// TODO Auto-generated method stub
-		return null;
+		return nspRepo.findAStudentById(studentId);
 	}
 
 	@Override
 	public Student studentLogin(long aadhar, String password) {
-		if(!nspRepo.isStudentPresent(aadhar)) {
-			return null;
+//		if(!nspRepo.isStudentPresent(aadhar)) {
+//			return null;
+//		}
+//		else {
+//			return nspRepo.findStudentByIdAndPassword(aadhar, password);
+//		}
+		
+		Student student = nspRepo.findAStudentById(aadhar);
+		
+		if(student.getStudentPassword().equals(password)) {
+			return student;
 		}
 		else {
-			return nspRepo.findStudentByIdAndPassword(aadhar, password);
+			return null;
 		}
+		
+		
 	}
 
 	@Override

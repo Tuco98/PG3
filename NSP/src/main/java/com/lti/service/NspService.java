@@ -40,7 +40,7 @@ public interface NspService {
 
 	// Students services
 
-	public long registerAStudent(Student student);
+	public void registerAStudent(Student student);
 
 	public Student getAStudentById(long studentId);
 
