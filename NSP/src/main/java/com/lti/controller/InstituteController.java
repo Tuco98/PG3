@@ -76,6 +76,7 @@ public class InstituteController {
 		}
 		catch(NspServiceException e) {
 			System.out.println(e.getMessage());
+			//asdajas
 			return null;
 		}
 	}

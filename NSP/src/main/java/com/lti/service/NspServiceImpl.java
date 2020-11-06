@@ -181,6 +181,7 @@ public class NspServiceImpl implements NspService {
 		
 		for (Student student : students) {
 			if(student.getStudentStatus().equals(status) && (student.getInstitute().getInstituteId()==instituteId)) {
+				//added null else getting infinite loop
 				student.setInstitute(null);
 				st.add(student);
 			}
