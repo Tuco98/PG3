@@ -98,13 +98,14 @@ public class NspRepositoryImpl implements NspRepository {
 	@Override
 	public void saveANodal(Nodal nodal) {
 		// TODO Auto-generated method stub
+		em.merge(nodal);
 
 	}
 
 	@Override
 	public Nodal findANodalById(int nodalUid) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.find(Nodal.class, nodalUid);
 	}
 
 	/*
@@ -114,14 +115,14 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public long saveAScholarshipForm(ScholarshipForm form) {
-		// TODO Auto-generated method stub
-		return 0;
+		ScholarshipForm f = em.merge(form);
+		return f.getFormId();
 	}
 
 	@Override
-	public ScholarshipForm findAScholarshipFormById(long form_id) {
+	public ScholarshipForm findAScholarshipFormById(long formId) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.find(ScholarshipForm.class, formId);
 	}
 
 	@Override
