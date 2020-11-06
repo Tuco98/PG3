@@ -1,9 +1,12 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.InsLoginStatus;
@@ -13,7 +16,7 @@ import com.lti.dto.Status.StatusType;
 
 import com.lti.entity.Institute;
 import com.lti.entity.Scheme;
-
+import com.lti.entity.Student;
 import com.lti.exception.NspServiceException;
 import com.lti.service.NspService;
 
@@ -60,6 +63,20 @@ public class InstituteController {
 			loginStatus.setStatus(StatusType.FAILURE);
 			loginStatus.setMessage(e.getMessage());
 			return loginStatus;
+		}
+	}
+	
+	@PostMapping("/viewUnapprovedStudents")
+	public List<Student> viewUnapprovedStudents(@RequestParam("instituteId") long instituteId) {
+		try {
+			
+			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, "Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			return null;
 		}
 	}
 

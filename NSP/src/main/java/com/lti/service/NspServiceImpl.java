@@ -167,11 +167,17 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<Student> fetchStudentsOfParticularInstituteByStatus(long instituteId, String status) {
+		
+//		Institute ins = nspRepo.findAnInstituteById(instituteId);
+//		
+//		List<Student> st= ins.getStudents();
+		
 		List<Student> students=nspRepo.fetchAllStudents();
 		List<Student> st=new ArrayList<>();
 		
 		for (Student student : students) {
-			if(student.getStudentStatus().equals(status)) {
+			if(student.getStudentStatus().equals(status) && (student.getInstitute().getInstituteId()==instituteId)) {
+				student.setInstitute(null);
 				st.add(student);
 			}
 		}
