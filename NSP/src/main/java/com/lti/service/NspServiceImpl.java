@@ -26,6 +26,7 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void addAScheme(Scheme scheme) {
 		// TODO Auto-generated method stub
+		nspRepo.saveAScheme(scheme);
 
 	}
 
