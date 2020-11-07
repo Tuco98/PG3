@@ -60,7 +60,7 @@ public interface NspService {
 
 	// Scholarship form methods
 
-	public long applyAScholarshipForm(ScholarshipForm form);
+	public void applyAScholarshipForm(ScholarshipForm form);
 
 	public ScholarshipForm getAScholarshipFormById(long form_id);
 

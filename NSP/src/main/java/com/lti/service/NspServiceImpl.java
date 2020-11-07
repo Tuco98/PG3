@@ -244,9 +244,14 @@ public class NspServiceImpl implements NspService {
 	}
 
 	@Override
-	public long applyAScholarshipForm(ScholarshipForm form) {
+	public void applyAScholarshipForm(ScholarshipForm form) {
 		
-		return nspRepo.saveAScholarshipForm(form);
+		long id = nspRepo.saveAScholarshipForm(form);
+		
+		String text="Successfully registered. Your form id is "+id;
+        String subject="Form Successfully applied";
+        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
+		
 	}
 
 	@Override

@@ -14,6 +14,8 @@ import com.lti.dto.Status.StatusType;
 import com.lti.dto.StudentLoginDto;
 import com.lti.dto.StudentLoginStatus;
 import com.lti.entity.Institute;
+import com.lti.entity.Scheme;
+import com.lti.entity.ScholarshipForm;
 import com.lti.entity.Student;
 import com.lti.exception.NspServiceException;
 import com.lti.service.NspService;
@@ -62,6 +64,35 @@ public class StudentController {
 		}
 		catch(NspServiceException e) {
 			InsLoginStatus loginStatus = new InsLoginStatus();
+			loginStatus.setStatus(StatusType.FAILURE);
+			loginStatus.setMessage(e.getMessage());
+			return loginStatus;
+		}
+	}
+	
+	@PostMapping("/applyForScheme")
+	public Status applyForAScholarship(@RequestParam("schemeId")long schemeId,@RequestParam("studentId")long studentId,@RequestParam("instituteId")long instituteId, @RequestBody ScholarshipForm form) {
+		try {
+			Institute ins = nspService.getAnInstituteById(instituteId);
+			Student stu = nspService.getAStudentById(studentId);
+			Scheme scheme = nspService.findAScheme(schemeId);
+			
+			form.setInstitute(ins);
+			form.setScheme(scheme);
+			form.setStudent(stu);
+			
+			nspService.applyAScholarshipForm(form);
+			
+			Status status = new Status();
+			
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("Login Successful!");
+			//loginStatus.setInstituteId(ins.getInstituteId());
+			//loginStatus.setInsName(ins.getInstituteName());
+			return status;
+		}
+		catch(NspServiceException e) {
+			Status loginStatus = new Status();
 			loginStatus.setStatus(StatusType.FAILURE);
 			loginStatus.setMessage(e.getMessage());
 			return loginStatus;
