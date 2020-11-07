@@ -27,8 +27,10 @@ public class StudentController {
 	private NspService nspService;
 
 	@PostMapping(path = "/registerStudent")
-	public Status addStudent(@RequestBody Student student) {
+	public Status addStudent(@RequestParam("institute_id") long insId, @RequestBody Student student) {
 		try {
+			Institute ins = nspService.getAnInstituteById(insId);
+			student.setInstitute(ins);
 			nspService.registerAStudent(student);
 			//Student stu = nspService.getAStudentById(studentId);
 			Status status = new Status();

@@ -41,6 +41,8 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public long registerAnInstitute(Institute institute) {
 		if(!nspRepo.isInstitutePresent(institute.getInstituteEmail())) {
+			institute.setInstituteNodalOfficerApproval("Not Approved");
+			institute.setInstituteMinistryApproval("Not Approved");
 			long id=nspRepo.saveAnInstitute(institute);
             String text="Successfully registered. Your id is "+id +"\n You Will be notified after Verification.";
             String subject="Registration Confirmation";
