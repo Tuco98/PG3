@@ -44,7 +44,7 @@ public class ScholarshipForm {
 	String motherName;
 	
 	@Column(name = "family_annual_income")
-	double familyAnnualIncome;
+	String familyAnnualIncome;
 	
 	@Column(name = "inst_verification_status")
 	String instituteVerificationStatus; //Not Approved/Approved/Rejected
@@ -79,33 +79,23 @@ public class ScholarshipForm {
 	Scheme scheme;
 	
 	
-	String instituteName;
-	String presentCourse;
-	LocalDate presentCourseYear;
-	String modeOfStudy;
-	LocalDate classStartDate;
-	String universityName;
-	String previousCourse;
-	LocalDate previousPassingYear;
-	double previousClassPercentage;
-	
 	String class10RollNumber;
 	String class10BoardName;
-	LocalDate class10PassingYear;
-	double class10Percentage;
+	String class10PassingYear;
+	String class10Percentage;
 	
 	String class12RollNumber;
 	String class12BoardName;
-	LocalDate class12PassingYear;
-	double class12Percentage;
+	String class12PassingYear;
+	String class12Percentage;
 	
-	double admissionFee;
-	double tutionFee;
-	double otherFee;
+	String admissionFee;
+	String tutionFee;
+	String otherFee;
 	
 	String isDisabled;
 	String typeOfDisabilty;
-	double percentageOfDisability;
+	String percentageOfDisability;
 	String maritalStatus;
 	String parentProfession;
 
@@ -157,20 +147,22 @@ public class ScholarshipForm {
 		this.motherName = motherName;
 	}
 
-	public double getFamilyAnnualIncome() {
+	
+
+	public String getFamilyAnnualIncome() {
 		return familyAnnualIncome;
 	}
 
-	public void setFamilyAnnualIncome(double familyAnnualIncome) {
+	public void setFamilyAnnualIncome(String familyAnnualIncome) {
 		this.familyAnnualIncome = familyAnnualIncome;
 	}
 
-	public Student getStudent() {
-		return student;
+	public String getInstituteVerificationStatus() {
+		return instituteVerificationStatus;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setInstituteVerificationStatus(String instituteVerificationStatus) {
+		this.instituteVerificationStatus = instituteVerificationStatus;
 	}
 
 	public String getNodalVerificationStatus() {
@@ -189,14 +181,6 @@ public class ScholarshipForm {
 		this.ministryVerificationStatus = ministryVerificationStatus;
 	}
 
-	public String getInstituteVerificationStatus() {
-		return instituteVerificationStatus;
-	}
-
-	public void setInstituteVerificationStatus(String instituteVerificationStatus) {
-		this.instituteVerificationStatus = instituteVerificationStatus;
-	}
-
 	public LocalDate getDateOfApproval() {
 		return dateOfApproval;
 	}
@@ -213,20 +197,12 @@ public class ScholarshipForm {
 		this.status = status;
 	}
 
-	public Scheme getScheme() {
-		return scheme;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setScheme(Scheme scheme) {
-		this.scheme = scheme;
-	}
-
-	public Institute getInstitute() {
-		return instituteObj;
-	}
-
-	public void setInstitute(Institute institute) {
-		this.instituteObj = institute;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public Institute getInstituteObj() {
@@ -237,76 +213,12 @@ public class ScholarshipForm {
 		this.instituteObj = instituteObj;
 	}
 
-	public String getInstituteName() {
-		return instituteName;
+	public Scheme getScheme() {
+		return scheme;
 	}
 
-	public void setInstituteName(String instituteName) {
-		this.instituteName = instituteName;
-	}
-
-	public String getPresentCourse() {
-		return presentCourse;
-	}
-
-	public void setPresentCourse(String presentCourse) {
-		this.presentCourse = presentCourse;
-	}
-
-	public LocalDate getPresentCourseYear() {
-		return presentCourseYear;
-	}
-
-	public void setPresentCourseYear(LocalDate presentCourseYear) {
-		this.presentCourseYear = presentCourseYear;
-	}
-
-	public String getModeOfStudy() {
-		return modeOfStudy;
-	}
-
-	public void setModeOfStudy(String modeOfStudy) {
-		this.modeOfStudy = modeOfStudy;
-	}
-
-	public LocalDate getClassStartDate() {
-		return classStartDate;
-	}
-
-	public void setClassStartDate(LocalDate classStartDate) {
-		this.classStartDate = classStartDate;
-	}
-
-	public String getUniversityName() {
-		return universityName;
-	}
-
-	public void setUniversityName(String universityName) {
-		this.universityName = universityName;
-	}
-
-	public String getPreviousCourse() {
-		return previousCourse;
-	}
-
-	public void setPreviousCourse(String previousCourse) {
-		this.previousCourse = previousCourse;
-	}
-
-	public LocalDate getPreviousPassingYear() {
-		return previousPassingYear;
-	}
-
-	public void setPreviousPassingYear(LocalDate previousPassingYear) {
-		this.previousPassingYear = previousPassingYear;
-	}
-
-	public double getPreviousClassPercentage() {
-		return previousClassPercentage;
-	}
-
-	public void setPreviousClassPercentage(double previousClassPercentage) {
-		this.previousClassPercentage = previousClassPercentage;
+	public void setScheme(Scheme scheme) {
+		this.scheme = scheme;
 	}
 
 	public String getClass10RollNumber() {
@@ -325,19 +237,19 @@ public class ScholarshipForm {
 		this.class10BoardName = class10BoardName;
 	}
 
-	public LocalDate getClass10PassingYear() {
+	public String getClass10PassingYear() {
 		return class10PassingYear;
 	}
 
-	public void setClass10PassingYear(LocalDate class10PassingYear) {
+	public void setClass10PassingYear(String class10PassingYear) {
 		this.class10PassingYear = class10PassingYear;
 	}
 
-	public double getClass10Percentage() {
+	public String getClass10Percentage() {
 		return class10Percentage;
 	}
 
-	public void setClass10Percentage(double class10Percentage) {
+	public void setClass10Percentage(String class10Percentage) {
 		this.class10Percentage = class10Percentage;
 	}
 
@@ -357,47 +269,45 @@ public class ScholarshipForm {
 		this.class12BoardName = class12BoardName;
 	}
 
-	public LocalDate getClass12PassingYear() {
+	public String getClass12PassingYear() {
 		return class12PassingYear;
 	}
 
-	public void setClass12PassingYear(LocalDate class12PassingYear) {
+	public void setClass12PassingYear(String class12PassingYear) {
 		this.class12PassingYear = class12PassingYear;
 	}
 
-	public double getClass12Percentage() {
+	public String getClass12Percentage() {
 		return class12Percentage;
 	}
 
-	public void setClass12Percentage(double class12Percentage) {
+	public void setClass12Percentage(String class12Percentage) {
 		this.class12Percentage = class12Percentage;
 	}
 
-	public double getAdmissionFee() {
+	public String getAdmissionFee() {
 		return admissionFee;
 	}
 
-	public void setAdmissionFee(double admissionFee) {
+	public void setAdmissionFee(String admissionFee) {
 		this.admissionFee = admissionFee;
 	}
 
-	public double getTutionFee() {
+	public String getTutionFee() {
 		return tutionFee;
 	}
 
-	public void setTutionFee(double tutionFee) {
+	public void setTutionFee(String tutionFee) {
 		this.tutionFee = tutionFee;
 	}
 
-	public double getOtherFee() {
+	public String getOtherFee() {
 		return otherFee;
 	}
 
-	public void setOtherFee(double otherFee) {
+	public void setOtherFee(String otherFee) {
 		this.otherFee = otherFee;
 	}
-	
-	
 
 	public String getIsDisabled() {
 		return isDisabled;
@@ -415,11 +325,11 @@ public class ScholarshipForm {
 		this.typeOfDisabilty = typeOfDisabilty;
 	}
 
-	public double getPercentageOfDisability() {
+	public String getPercentageOfDisability() {
 		return percentageOfDisability;
 	}
 
-	public void setPercentageOfDisability(double percentageOfDisability) {
+	public void setPercentageOfDisability(String percentageOfDisability) {
 		this.percentageOfDisability = percentageOfDisability;
 	}
 

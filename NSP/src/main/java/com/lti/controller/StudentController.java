@@ -77,7 +77,7 @@ public class StudentController {
 			Student stu = nspService.getAStudentById(studentId);
 			Scheme scheme = nspService.findAScheme(schemeId);
 			
-			form.setInstitute(ins);
+			form.setInstituteObj(ins);
 			form.setScheme(scheme);
 			form.setStudent(stu);
 			
