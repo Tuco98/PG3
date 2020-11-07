@@ -245,6 +245,18 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void applyAScholarshipForm(ScholarshipForm form) {
+		/*
+		 * List<ScholarshipForm> forms=nspRepo.fetchAllScholarshipForms();
+		 * 
+		 * for (ScholarshipForm scholarshipForm : forms) {
+		 * if(scholarshipForm.getAadharNumber()==form.getAadharNumber()) { throw new
+		 * NspServiceException("You have already applied for this scheme"); }
+		 *
+		}*/
+		form.setInstituteVerificationStatus("Not Approved");
+		form.setNodalVerificationStatus("Not Approved");
+		form.setMinistryVerificationStatus("Not Approved");
+		form.setStatus("Not Approved");
 		
 		long id = nspRepo.saveAScholarshipForm(form);
 		
@@ -292,8 +304,17 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<ScholarshipForm> fetchFormsOfParticularInstituteByInstituteStatus(long instituteId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		/*List<ScholarshipForm> students=nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> st=new ArrayList<>();
+		
+		for (ScholarshipForm student : students) {
+			if(student.getInstituteVerificationStatus().equals(status) && (student.getInstituteObj().getInstituteId()==instituteId)) {
+				//added null else getting infinite loop
+				//student.setInstitute(null);
+				st.add(student);
+			}
+		}*/
+		return nspRepo.fetchFormsOfAnInstituteWithInstituteStatus(instituteId, status);
 	}
 
 	@Override
@@ -334,5 +355,15 @@ public class NspServiceImpl implements NspService {
 		return ins;
 	}
 
+	@Override
+	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status) {
+		
+		return nspRepo.fetchFormsUsingNodalStatus(status);
+	}
+
+	@Override
+	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status) {
+		return nspRepo.fetchFormsUsingMinistryStatus(status);
+	}
 	
 }

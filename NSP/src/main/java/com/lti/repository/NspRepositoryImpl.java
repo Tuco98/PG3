@@ -183,5 +183,30 @@ public class NspRepositoryImpl implements NspRepository {
 		query.setParameter("psw", password);
 		return (Nodal) query.getSingleResult();
 	}
+	@Override
+	public List<ScholarshipForm> fetchFormsOfAnInstituteWithInstituteStatus(long instituteId, String status){
+		String jpql = "select s from ScholarshipForm s where institute_id=:id and inst_verification_status=:ivs";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("id", instituteId);
+		query.setParameter("ivs", status);
+		return query.getResultList();
+	}
 
+	@Override
+	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status) {
+		String jpql="select s from ScholarshipForm s where nodal_verification_status=:nvs";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("nvs", status);
+		return query.getResultList();
+		
+	}
+
+	@Override
+	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status) {
+		
+		String jpql="select s from ScholarshipForm s where ministry_verification_status=:mvs";
+		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("mvs", status);
+		return query.getResultList();
+	}
 }

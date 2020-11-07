@@ -75,10 +75,12 @@ public class StudentController {
 		try {
 			Institute ins = nspService.getAnInstituteById(instituteId);
 			Student stu = nspService.getAStudentById(studentId);
+			if(stu.getForm() != null) {
+                throw new NspServiceException("Student already has a form");
+            }
 			Scheme scheme = nspService.findAScheme(schemeId);
 			
 			form.setInstituteObj(ins);
-			form.setScheme(scheme);
 			form.setStudent(stu);
 			
 			nspService.applyAScholarshipForm(form);

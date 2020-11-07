@@ -57,8 +57,7 @@ public class Scheme {
 	@Column(name = "scheme_status")
 	String schemeStatus;
 	
-	@OneToOne( mappedBy = "scheme")
-	ScholarshipForm form;
+	
 
 	public long getSchemeUId() {
 		return schemeUId;
@@ -164,15 +163,6 @@ public class Scheme {
 	public void setSchemeStatus(String schemeStatus) {
 		this.schemeStatus = schemeStatus;
 	}
-
-	public ScholarshipForm getForm() {
-		return form;
-	}
-
-	public void setForm(ScholarshipForm form) {
-		this.form = form;
-	}
-
 	
 	
 }

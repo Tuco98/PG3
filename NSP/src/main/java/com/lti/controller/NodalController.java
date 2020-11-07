@@ -1,5 +1,7 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +85,21 @@ public class NodalController {
 			loginStatus.setStatus(StatusType.FAILURE);
 			loginStatus.setMessage(e.getMessage());
 			return loginStatus;
+		}
+	}
+	
+	@PostMapping("/viewUnapprovedFormsByNodal")
+	public List<ScholarshipForm> viewUnapprovedFormsByNodal() {
+		try {
+			
+			List<ScholarshipForm> list = nspService.fetchFormsUsingNodalStatus("Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
 		}
 	}
 }

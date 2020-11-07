@@ -79,7 +79,9 @@ public interface NspService {
 	public void ministryUpdatesAFormStatus(ScholarshipForm form, String status);
 
 	List<Institute> fetchAllInstitutesByStatus(String status);
-
 	
+	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status);
+
+	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status);
 
 }

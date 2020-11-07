@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table( name = "tbl_students")
 @NamedQuery(name = "fetchAllStudents", query="select st from Student st")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","form"})
 public class Student {
 	@Id
 	@Column(name = "student_aadhar_number")
@@ -65,7 +66,7 @@ public class Student {
 	@JoinColumn(name="institute_id")
 	Institute institute;
 	
-	@OneToOne( mappedBy = "student")
+	@OneToOne( mappedBy = "student",fetch = FetchType.LAZY)
 	ScholarshipForm form;
 
 	public long getStudentAadharNumber() {

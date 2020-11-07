@@ -85,7 +85,7 @@ public class Institute {
 	@OneToMany(mappedBy="institute", fetch = FetchType.LAZY)
 	List<Student> students;
 	
-	@OneToMany(mappedBy="instituteObj")
+	@OneToMany(mappedBy="instituteObj",fetch = FetchType.LAZY,orphanRemoval = true)
 	List<ScholarshipForm> forms;
 	
 	public long getInstituteId() {

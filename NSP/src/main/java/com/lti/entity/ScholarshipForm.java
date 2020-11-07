@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,10 +17,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 //@Table( name = "form_demo")
 @Table( name = "tbl_scholarship_form")
 @NamedQuery(name = "fetchAllForms", query="select sf from ScholarshipForm sf")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","student"})
 public class ScholarshipForm {
 	
 	@Id
@@ -62,11 +66,11 @@ public class ScholarshipForm {
 	String status;
 	
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn( name = "student_aadhar_number")
 	Student student;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn( name = "institute_id")
 	Institute instituteObj;
 	
@@ -74,9 +78,7 @@ public class ScholarshipForm {
 //	@JoinColumn( name = "nodal_uid")
 //	Nodal nodal;
 	
-	@OneToOne
-	@JoinColumn( name = "scheme_uid")
-	Scheme scheme;
+	
 	
 	
 	String class10RollNumber;
@@ -213,13 +215,7 @@ public class ScholarshipForm {
 		this.instituteObj = instituteObj;
 	}
 
-	public Scheme getScheme() {
-		return scheme;
-	}
-
-	public void setScheme(Scheme scheme) {
-		this.scheme = scheme;
-	}
+	
 
 	public String getClass10RollNumber() {
 		return class10RollNumber;

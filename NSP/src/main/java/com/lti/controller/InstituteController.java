@@ -16,6 +16,7 @@ import com.lti.dto.Status.StatusType;
 
 import com.lti.entity.Institute;
 import com.lti.entity.Scheme;
+import com.lti.entity.ScholarshipForm;
 import com.lti.entity.Student;
 import com.lti.exception.NspServiceException;
 import com.lti.service.NspService;
@@ -68,6 +69,36 @@ public class InstituteController {
 	
 	@PostMapping("/viewUnapprovedStudents")
 	public List<Student> viewUnapprovedStudents(@RequestParam("instituteId") long instituteId) {
+		try {
+			
+			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, "Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@PostMapping("/viewUnapprovedFormsByInstitute")
+	public List<ScholarshipForm> viewUnapprovedFormsByInstitute(@RequestParam("instituteId") long instituteId) {
+		try {
+			
+			List<ScholarshipForm> list = nspService.fetchFormsOfParticularInstituteByInstituteStatus(instituteId, "Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@PostMapping("/viewUnapprovedStudentsByInstitute")
+	public List<Student> viewUnapprovesStudentsByInstitute(@RequestParam("instituteId") long instituteId) {
 		try {
 			
 			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, "Not Approved");

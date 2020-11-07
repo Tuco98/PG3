@@ -1,5 +1,7 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +65,7 @@ public class MinistryController {
 	}
 	
 	@PostMapping("/ministryUpdateForm")
-	public Status nodalUpdatesFormStatus(@RequestParam("formId") long formId, @RequestParam("status") String status) {
+	public Status ministryUpdatesFormStatus(@RequestParam("formId") long formId, @RequestParam("status") String status) {
 		try {
 			ScholarshipForm form = nspService.getAScholarshipFormById(formId);
 			nspService.ministryUpdatesAFormStatus(form, status);
@@ -79,6 +81,21 @@ public class MinistryController {
 			loginStatus.setStatus(StatusType.FAILURE);
 			loginStatus.setMessage(e.getMessage());
 			return loginStatus;
+		}
+	}
+	
+	@PostMapping("/viewUnapprovedFormsByMinistry")
+	public List<ScholarshipForm> viewUnapprovedFormsByIMinistry() {
+		try {
+			
+			List<ScholarshipForm> list = nspService.fetchFormsUsingMinistryStatus("Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
 		}
 	}
 }
