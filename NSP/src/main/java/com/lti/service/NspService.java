@@ -20,8 +20,6 @@ public interface NspService {
 
 	public Institute getAnInstituteById(long instituteId);
 
-	public Institute getAnInstituteByInstituteCode(String instituteCode);
-
 	public List<Institute> fetchAllInstitutes();
 
 	public Institute instituteLogin(long userId, String password);

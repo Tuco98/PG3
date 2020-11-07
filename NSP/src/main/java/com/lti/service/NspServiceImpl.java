@@ -40,15 +40,17 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public long registerAnInstitute(Institute institute) {
-		if(!nspRepo.isInstitutePresent(institute.getInstituteId())) {
+		if(!nspRepo.isInstitutePresent(institute.getInstituteEmail())) {
 			long id=nspRepo.saveAnInstitute(institute);
             String text="Successfully registered. Your id is "+id +"\n You Will be notified after Verification.";
             String subject="Registration Confirmation";
             emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
-			return nspRepo.saveAnInstitute(institute);
+			return id;
 			
 		}
-		return (Long) null;
+		else {
+			throw new NspServiceException("Already exists");
+		}
 	}
 
 	@Override
@@ -56,10 +58,6 @@ public class NspServiceImpl implements NspService {
 		return nspRepo.findAnInstituteById(instituteId);
 	}
 
-	@Override
-	public Institute getAnInstituteByInstituteCode(String instituteCode) {
-		return nspRepo.findAnInstituteByInstituteCode(instituteCode);
-	}
 
 	@Override
 	public List<Institute> fetchAllInstitutes() {
@@ -295,6 +293,7 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void ministryUpdatesAFormStatus(ScholarshipForm form, String status) {
 		form.setMinistryVerificationStatus(status);
+		form.setStatus(status);
 		nspRepo.saveAScholarshipForm(form);
 
 	}

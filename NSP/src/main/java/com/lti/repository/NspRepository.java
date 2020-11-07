@@ -21,11 +21,7 @@ public interface NspRepository {
 	
 	public Institute findAnInstituteById(long instituteId);
 	
-	public Institute findAnInstituteByInstituteCode(String instituteCode);
-	
 	public List<Institute> fetchAllInstitutes();
-	
-	public boolean isInstitutePresent(long instituteId);
 	
 	public Long findInstituteByIdAndPassword(long instituteId, String password);
 	
@@ -86,6 +82,7 @@ public interface NspRepository {
 	//public boolean ministryLogin(int userId, String password);
 	
 	public boolean isMinistryPresent(int ministryId);
+	public boolean isInstitutePresent(String email);
 	
 	
 	

@@ -53,16 +53,6 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
-	public Institute findAnInstituteByInstituteCode(String instituteCode) {
-
-		String jpql = "select i from Institute i where i.instituteCode=:ic";
-		Query query = em.createQuery(jpql, Institute.class);
-		query.setParameter("ic", instituteCode);
-		Institute ins = (Institute) query.getResultList().stream().findFirst().orElse(null);
-		return ins;
-	}
-
-	@Override
 	public List<Institute> fetchAllInstitutes() {
 		return em.createNamedQuery("fetchAllInstitutes").getResultList();
 	}
@@ -115,6 +105,7 @@ public class NspRepositoryImpl implements NspRepository {
 	 */
 
 	@Override
+	@Transactional
 	public long saveAScholarshipForm(ScholarshipForm form) {
 		ScholarshipForm f = em.merge(form);
 		return f.getFormId();
@@ -141,8 +132,8 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
-	public boolean isInstitutePresent(long instituteId) {
-		return (Long) em.createQuery("select count(i.id) from Institute i where i.instituteId = :id").setParameter("id", instituteId)
+	public boolean isInstitutePresent(String email) {
+		return (Long) em.createQuery("select count(i.id) from Institute i where i.instituteEmail = :em").setParameter("em", email)
 				.getSingleResult() == 1 ? true : false;
 	}
 
