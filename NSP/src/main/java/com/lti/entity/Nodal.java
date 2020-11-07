@@ -28,7 +28,7 @@ public class Nodal {
 	String nodalEmail;
 	
 	@Column(name="Nodal_Phone")
-	int nodalPhone;
+	String nodalPhone;
 	
 	@Column(name="Nodal_Status")
 	String nodalStatus;
@@ -68,15 +68,17 @@ public class Nodal {
 		this.nodalEmail = nodalEmail;
 	}
 
-	public int getNodalPhone() {
+	
+
+	
+	public String getNodalPhone() {
 		return nodalPhone;
 	}
 
-	public void setNodalPhone(int nodalPhone) {
+	public void setNodalPhone(String nodalPhone) {
 		this.nodalPhone = nodalPhone;
 	}
 
-	
 	public String getNodalStatus() {
 		return nodalStatus;
 	}

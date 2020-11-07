@@ -70,7 +70,7 @@ public class InstituteController {
 	public List<Student> viewUnapprovedStudents(@RequestParam("instituteId") long instituteId) {
 		try {
 			
-			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, "Approved");
+			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, "Not Approved");
 			
 			return list;
 		}
