@@ -17,7 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "form_demo") //@Table( name = "tbl_scholarship_form")
+//@Table( name = "form_demo")
+@Table( name = "tbl_scholarship_form")
 @NamedQuery(name = "fetchAllForms", query="select sf from ScholarshipForm sf")
 public class ScholarshipForm {
 	
@@ -69,15 +70,15 @@ public class ScholarshipForm {
 	@JoinColumn( name = "institute_id")
 	Institute instituteObj;
 	
-	@OneToOne
-	@JoinColumn( name = "nodal_uid")
-	Nodal nodal;
+//	@OneToOne
+//	@JoinColumn( name = "nodal_uid")
+//	Nodal nodal;
 	
 	@OneToOne
 	@JoinColumn( name = "scheme_uid")
 	Scheme scheme;
 	
-	/*
+	
 	String instituteName;
 	String presentCourse;
 	LocalDate presentCourseYear;
@@ -107,7 +108,6 @@ public class ScholarshipForm {
 	double percentageOfDisability;
 	String maritalStatus;
 	String parentProfession;
-	*/
 
 	public long getFormId() {
 		return formId;
@@ -213,14 +213,6 @@ public class ScholarshipForm {
 		this.status = status;
 	}
 
-	public Nodal getNodal() {
-		return nodal;
-	}
-
-	public void setNodal(Nodal nodal) {
-		this.nodal = nodal;
-	}
-
 	public Scheme getScheme() {
 		return scheme;
 	}
@@ -235,6 +227,214 @@ public class ScholarshipForm {
 
 	public void setInstitute(Institute institute) {
 		this.instituteObj = institute;
+	}
+
+	public Institute getInstituteObj() {
+		return instituteObj;
+	}
+
+	public void setInstituteObj(Institute instituteObj) {
+		this.instituteObj = instituteObj;
+	}
+
+	public String getInstituteName() {
+		return instituteName;
+	}
+
+	public void setInstituteName(String instituteName) {
+		this.instituteName = instituteName;
+	}
+
+	public String getPresentCourse() {
+		return presentCourse;
+	}
+
+	public void setPresentCourse(String presentCourse) {
+		this.presentCourse = presentCourse;
+	}
+
+	public LocalDate getPresentCourseYear() {
+		return presentCourseYear;
+	}
+
+	public void setPresentCourseYear(LocalDate presentCourseYear) {
+		this.presentCourseYear = presentCourseYear;
+	}
+
+	public String getModeOfStudy() {
+		return modeOfStudy;
+	}
+
+	public void setModeOfStudy(String modeOfStudy) {
+		this.modeOfStudy = modeOfStudy;
+	}
+
+	public LocalDate getClassStartDate() {
+		return classStartDate;
+	}
+
+	public void setClassStartDate(LocalDate classStartDate) {
+		this.classStartDate = classStartDate;
+	}
+
+	public String getUniversityName() {
+		return universityName;
+	}
+
+	public void setUniversityName(String universityName) {
+		this.universityName = universityName;
+	}
+
+	public String getPreviousCourse() {
+		return previousCourse;
+	}
+
+	public void setPreviousCourse(String previousCourse) {
+		this.previousCourse = previousCourse;
+	}
+
+	public LocalDate getPreviousPassingYear() {
+		return previousPassingYear;
+	}
+
+	public void setPreviousPassingYear(LocalDate previousPassingYear) {
+		this.previousPassingYear = previousPassingYear;
+	}
+
+	public double getPreviousClassPercentage() {
+		return previousClassPercentage;
+	}
+
+	public void setPreviousClassPercentage(double previousClassPercentage) {
+		this.previousClassPercentage = previousClassPercentage;
+	}
+
+	public String getClass10RollNumber() {
+		return class10RollNumber;
+	}
+
+	public void setClass10RollNumber(String class10RollNumber) {
+		this.class10RollNumber = class10RollNumber;
+	}
+
+	public String getClass10BoardName() {
+		return class10BoardName;
+	}
+
+	public void setClass10BoardName(String class10BoardName) {
+		this.class10BoardName = class10BoardName;
+	}
+
+	public LocalDate getClass10PassingYear() {
+		return class10PassingYear;
+	}
+
+	public void setClass10PassingYear(LocalDate class10PassingYear) {
+		this.class10PassingYear = class10PassingYear;
+	}
+
+	public double getClass10Percentage() {
+		return class10Percentage;
+	}
+
+	public void setClass10Percentage(double class10Percentage) {
+		this.class10Percentage = class10Percentage;
+	}
+
+	public String getClass12RollNumber() {
+		return class12RollNumber;
+	}
+
+	public void setClass12RollNumber(String class12RollNumber) {
+		this.class12RollNumber = class12RollNumber;
+	}
+
+	public String getClass12BoardName() {
+		return class12BoardName;
+	}
+
+	public void setClass12BoardName(String class12BoardName) {
+		this.class12BoardName = class12BoardName;
+	}
+
+	public LocalDate getClass12PassingYear() {
+		return class12PassingYear;
+	}
+
+	public void setClass12PassingYear(LocalDate class12PassingYear) {
+		this.class12PassingYear = class12PassingYear;
+	}
+
+	public double getClass12Percentage() {
+		return class12Percentage;
+	}
+
+	public void setClass12Percentage(double class12Percentage) {
+		this.class12Percentage = class12Percentage;
+	}
+
+	public double getAdmissionFee() {
+		return admissionFee;
+	}
+
+	public void setAdmissionFee(double admissionFee) {
+		this.admissionFee = admissionFee;
+	}
+
+	public double getTutionFee() {
+		return tutionFee;
+	}
+
+	public void setTutionFee(double tutionFee) {
+		this.tutionFee = tutionFee;
+	}
+
+	public double getOtherFee() {
+		return otherFee;
+	}
+
+	public void setOtherFee(double otherFee) {
+		this.otherFee = otherFee;
+	}
+
+	public boolean isDisabled() {
+		return isDisabled;
+	}
+
+	public void setDisabled(boolean isDisabled) {
+		this.isDisabled = isDisabled;
+	}
+
+	public String getTypeOfDisabilty() {
+		return typeOfDisabilty;
+	}
+
+	public void setTypeOfDisabilty(String typeOfDisabilty) {
+		this.typeOfDisabilty = typeOfDisabilty;
+	}
+
+	public double getPercentageOfDisability() {
+		return percentageOfDisability;
+	}
+
+	public void setPercentageOfDisability(double percentageOfDisability) {
+		this.percentageOfDisability = percentageOfDisability;
+	}
+
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+
+	public String getParentProfession() {
+		return parentProfession;
+	}
+
+	public void setParentProfession(String parentProfession) {
+		this.parentProfession = parentProfession;
 	}
 	
 	

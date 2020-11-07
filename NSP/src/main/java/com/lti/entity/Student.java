@@ -6,12 +6,16 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table( name = "tbl_students")
@@ -46,7 +50,7 @@ public class Student {
 	String studentBankName;
 	
 	@Column(name = "student_bank_account_number")
-	String studenBankAccountNumber;
+	String studentBankAccountNumber;
 	
 	@Column(name = "student_ifsc_code")
 	String studentIfcsCode; 
@@ -57,8 +61,8 @@ public class Student {
 	@Column(name = "student_status")
 	String studentStatus; //Not Approved/Approved/Rejected
 	
-	@ManyToOne
-	@JoinColumn(name="institute_code")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="institute_id")
 	Institute institute;
 	
 	@OneToOne( mappedBy = "student")
@@ -136,12 +140,14 @@ public class Student {
 		this.studentBankName = studentBankName;
 	}
 
-	public String getStudenBankAccountNumber() {
-		return studenBankAccountNumber;
+	
+
+	public String getStudentBankAccountNumber() {
+		return studentBankAccountNumber;
 	}
 
-	public void setStudenBankAccountNumber(String studenBankAccountNumber) {
-		this.studenBankAccountNumber = studenBankAccountNumber;
+	public void setStudentBankAccountNumber(String studentBankAccountNumber) {
+		this.studentBankAccountNumber = studentBankAccountNumber;
 	}
 
 	public String getStudentIfcsCode() {

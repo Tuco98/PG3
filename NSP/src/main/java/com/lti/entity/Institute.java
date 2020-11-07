@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,9 +13,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tbl_institutes")
 @NamedQuery(name = "fetchAllInstitutes", query = "select i from Institute i")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","students","forms"})
 public class Institute {
 	
 	@Id
@@ -25,9 +30,6 @@ public class Institute {
 	
 	@Column(name="institute_code")
 	String instituteCode;
-	
-	@Column(name="institute_disecode")
-	String instituteDiseCode;
 	
 	@Column(name="institute_name")
 	String instituteName;
@@ -72,7 +74,7 @@ public class Institute {
 	String instituteEmail;
 	
 	@Column(name = "institute_status")
-	boolean instituteStatus;
+	String instituteStatus;
 	
 	@Column(name = "nodal_officer_approval")
 	String instituteNodalOfficerApproval;
@@ -80,7 +82,7 @@ public class Institute {
 	@Column(name = "ministry_approval")
 	String instituteMinistryApproval;
 	
-	@OneToMany(mappedBy="institute")
+	@OneToMany(mappedBy="institute", fetch = FetchType.LAZY)
 	List<Student> students;
 	
 	@OneToMany(mappedBy="instituteObj")
@@ -98,11 +100,20 @@ public class Institute {
 	public void setInstituteCode(String instituteCode) {
 		this.instituteCode = instituteCode;
 	}
-	public String getInstituteDiseCode() {
-		return instituteDiseCode;
+	
+	
+	
+	public String getInstituteStatus() {
+		return instituteStatus;
 	}
-	public void setInstituteDiseCode(String instituteDiseCode) {
-		this.instituteDiseCode = instituteDiseCode;
+	public void setInstituteStatus(String instituteStatus) {
+		this.instituteStatus = instituteStatus;
+	}
+	public List<ScholarshipForm> getForms() {
+		return forms;
+	}
+	public void setForms(List<ScholarshipForm> forms) {
+		this.forms = forms;
 	}
 	public String getInstituteName() {
 		return instituteName;
@@ -191,12 +202,8 @@ public class Institute {
 	public void setInstituteEmail(String instituteEmail) {
 		this.instituteEmail = instituteEmail;
 	}
-	public boolean isInstituteStatus() {
-		return instituteStatus;
-	}
-	public void setInstituteStatus(boolean instituteStatus) {
-		this.instituteStatus = instituteStatus;
-	}
+	
+	
 	public List<Student> getStudents() {
 		return students;
 	}

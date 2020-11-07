@@ -31,14 +31,11 @@ public class Nodal {
 	int nodalPhone;
 	
 	@Column(name="Nodal_Status")
-	boolean nodalStatus;
+	String nodalStatus;
 	
 	@Column(name="Nodal_Password")
 	String nodalPassword;
 	
-	@OneToOne( mappedBy = "nodal")
-	ScholarshipForm form;
-
 	public int getNodalUid() {
 		return nodalUid;
 	}
@@ -79,11 +76,12 @@ public class Nodal {
 		this.nodalPhone = nodalPhone;
 	}
 
-	public Boolean getNodalStatus() {
+	
+	public String getNodalStatus() {
 		return nodalStatus;
 	}
 
-	public void setNodalStatus(boolean nodalStatus) {
+	public void setNodalStatus(String nodalStatus) {
 		this.nodalStatus = nodalStatus;
 	}
 
@@ -95,14 +93,5 @@ public class Nodal {
 		this.nodalPassword = nodalPassword;
 	}
 
-	public ScholarshipForm getForm() {
-		return form;
-	}
-
-	public void setForm(ScholarshipForm form) {
-		this.form = form;
-	}
-
-	
 	
 }

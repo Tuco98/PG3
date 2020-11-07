@@ -18,12 +18,6 @@ public class Ministry {
 	
 	@Column(name="MinistryPassword")
 	String ministryPassword;
-	
-	@Column(name="MinistryState")
-	String ministryState;
-	
-	@Column(name="MinistryStatus")
-	Boolean ministryStatus = true;
 
 	public int getMinistryUid() {
 		return ministryUid;
@@ -41,22 +35,5 @@ public class Ministry {
 		this.ministryPassword = ministryPassword;
 	}
 
-	public String getMinistryState() {
-		return ministryState;
-	}
 
-	public void setMinistryState(String ministryState) {
-		this.ministryState = ministryState;
-	}
-
-	public Boolean getMinistryStatus() {
-		return ministryStatus;
-	}
-
-	public void setMinistryStatus(Boolean ministryStatus) {
-		this.ministryStatus = ministryStatus;
-	}
-	
-	
-	
 }

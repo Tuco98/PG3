@@ -182,7 +182,7 @@ public class NspServiceImpl implements NspService {
 		for (Student student : students) {
 			if(student.getStudentStatus().equals(status) && (student.getInstitute().getInstituteId()==instituteId)) {
 				//added null else getting infinite loop
-				student.setInstitute(null);
+				//student.setInstitute(null);
 				st.add(student);
 			}
 		}
@@ -312,15 +312,16 @@ public class NspServiceImpl implements NspService {
 	}
 
 	@Override
-	public List<Institute> fetchAllInstitutesByStatus(boolean status) {
+	public List<Institute> fetchAllInstitutesByStatus(String status) {
 		List<Institute> institutes=nspRepo.fetchAllInstitutes();
 		List<Institute> ins=new ArrayList<>();
 		for (Institute institute : institutes) {
-			if(institute.isInstituteStatus()==status) {
+			if(institute.getInstituteStatus().equals(status)) {
 				ins.add(institute);
 			}
 		}
 		return ins;
 	}
 
+	
 }

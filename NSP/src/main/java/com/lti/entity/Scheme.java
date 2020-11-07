@@ -49,13 +49,13 @@ public class Scheme {
 	double schemeFamilyIncome;
 	
 	@Column(name = "scheme_disabled")
-	boolean schemeForDisabled;
+	String schemeForDisabled;
 	
 	@Column(name = "scheme_amount")
 	long schemeAmount;
 	
 	@Column(name = "scheme_status")
-	boolean schemeStatus;
+	String schemeStatus;
 	
 	@OneToOne( mappedBy = "scheme")
 	ScholarshipForm form;
@@ -140,15 +140,6 @@ public class Scheme {
 		this.schemeFamilyIncome = schemeFamilyIncome;
 	}
 
-	
-
-	public boolean isSchemeForDisabled() {
-		return schemeForDisabled;
-	}
-
-	public void setSchemeForDisabled(boolean schemeForDisabled) {
-		this.schemeForDisabled = schemeForDisabled;
-	}
 
 	public long getSchemeAmount() {
 		return schemeAmount;
@@ -158,12 +149,30 @@ public class Scheme {
 		this.schemeAmount = schemeAmount;
 	}
 
-	public boolean isSchemeStatus() {
+	public String getSchemeForDisabled() {
+		return schemeForDisabled;
+	}
+
+	public void setSchemeForDisabled(String schemeForDisabled) {
+		this.schemeForDisabled = schemeForDisabled;
+	}
+
+	public String getSchemeStatus() {
 		return schemeStatus;
 	}
 
-	public void setSchemeStatus(boolean schemeStatus) {
+	public void setSchemeStatus(String schemeStatus) {
 		this.schemeStatus = schemeStatus;
 	}
+
+	public ScholarshipForm getForm() {
+		return form;
+	}
+
+	public void setForm(ScholarshipForm form) {
+		this.form = form;
+	}
+
+	
 	
 }
