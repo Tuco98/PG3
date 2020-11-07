@@ -96,7 +96,7 @@ public class InstituteController {
 			return null;
 		}
 	}
-	
+	//same method Tuco has implemented before 
 	@PostMapping("/viewUnapprovedStudentsByInstitute")
 	public List<Student> viewUnapprovesStudentsByInstitute(@RequestParam("instituteId") long instituteId) {
 		try {
@@ -111,5 +111,8 @@ public class InstituteController {
 			return null;
 		}
 	}
+	
+	//forgot Password
+	//fetch profile
 
 }

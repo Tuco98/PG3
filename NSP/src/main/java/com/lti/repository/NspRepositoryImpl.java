@@ -194,18 +194,20 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status) {
-		String jpql="select s from ScholarshipForm s where nodal_verification_status=:nvs";
+		String st = "Approved";
+		String jpql="select s from ScholarshipForm s where s.instituteVerificationStatus=:ivs and s.nodalVerificationStatus=:nvs";
 		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("ivs", status);
 		query.setParameter("nvs", status);
-		return query.getResultList();
-		
+		return query.getResultList();		
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status) {
-		
-		String jpql="select s from ScholarshipForm s where ministry_verification_status=:mvs";
+		String st = "Approved";
+		String jpql="select s from ScholarshipForm s where s.nodalVerificationStatus=:nvs and s.ministryVerificationStatus=:mvs";
 		Query query = em.createQuery(jpql, ScholarshipForm.class);
+		query.setParameter("nvs", st);
 		query.setParameter("mvs", status);
 		return query.getResultList();
 	}

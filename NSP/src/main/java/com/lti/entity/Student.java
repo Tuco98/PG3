@@ -64,6 +64,7 @@ public class Student {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="institute_id")
+	//@JsonIgnore
 	Institute institute;
 	
 	@OneToOne( mappedBy = "student",fetch = FetchType.LAZY)
@@ -175,6 +176,7 @@ public class Student {
 		this.studentStatus = studentStatus;
 	}
 
+	//@JsonIgnore
 	public Institute getInstitute() {
 		return institute;
 	}

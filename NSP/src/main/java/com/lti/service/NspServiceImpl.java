@@ -1,5 +1,6 @@
 package com.lti.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,8 +93,16 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void instituteUpdatesAForm(ScholarshipForm form, String status) {
-		form.setInstituteVerificationStatus(status);
-		nspRepo.saveAScholarshipForm(form);
+		
+		if(status.equals("Rejected")) {
+			form.setInstituteVerificationStatus(status);
+			nodalUpdatesAForm(form, status);
+		}
+		
+		else {
+			form.setInstituteVerificationStatus(status);
+			nspRepo.saveAScholarshipForm(form);
+		}
 
 	}
 
@@ -224,15 +233,26 @@ public class NspServiceImpl implements NspService {
 			return nodal;
 		}
 		else {
-			return null;
+			throw new NspServiceException("Login failed");
 		}
 	}
 	
 
 	@Override
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus) {
-		form.setNodalVerificationStatus(formStatus);
-		nspRepo.saveAScholarshipForm(form);
+		if(formStatus.equals("Rejected")) {
+			form.setNodalVerificationStatus(formStatus);
+			
+			ministryUpdatesAFormStatus(form, formStatus);
+			
+//			form.setMinistryVerificationStatus(formStatus);
+//			form.setStatus(formStatus);
+//			form.setDateOfApproval(LocalDate.now());
+		}
+		else {
+			form.setNodalVerificationStatus(formStatus);
+			nspRepo.saveAScholarshipForm(form);
+		}
 
 	}
 
@@ -327,7 +347,12 @@ public class NspServiceImpl implements NspService {
 	public void ministryUpdatesAFormStatus(ScholarshipForm form, String status) {
 		form.setMinistryVerificationStatus(status);
 		form.setStatus(status);
+		form.setDateOfApproval(LocalDate.now());
 		nspRepo.saveAScholarshipForm(form);
+		long id = form.getFormId();
+		String text="Your scholarship form with ID: "+id+" is "+ status;
+        String subject="Your form is approved";
+        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
 
 	}
 
@@ -358,12 +383,29 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status) {
 		
-		return nspRepo.fetchFormsUsingNodalStatus(status);
+		List<ScholarshipForm> list = nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> forms = new ArrayList<>();
+		for(ScholarshipForm sc: list) {
+			if(sc.getInstituteVerificationStatus().equals("Approved") && sc.getNodalVerificationStatus().equals(status)) {
+				forms.add(sc);
+			}
+		}
+		//return nspRepo.fetchFormsUsingNodalStatus(status);
+		return forms;
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status) {
-		return nspRepo.fetchFormsUsingMinistryStatus(status);
+		//return nspRepo.fetchFormsUsingMinistryStatus(status);
+		List<ScholarshipForm> list = nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> forms = new ArrayList<>();
+		for(ScholarshipForm sc: list) {
+			if(sc.getNodalVerificationStatus().equals("Not Approved") && sc.getMinistryVerificationStatus().equals(status)) {
+				forms.add(sc);
+			}
+		}
+		//return nspRepo.fetchFormsUsingNodalStatus(status);
+		return forms;
 	}
 	
 }

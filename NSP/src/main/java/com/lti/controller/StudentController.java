@@ -100,5 +100,9 @@ public class StudentController {
 			return loginStatus;
 		}
 	}
+	
+	
+	//forgot Password
+	//checkSchemeStatus
 
 }
