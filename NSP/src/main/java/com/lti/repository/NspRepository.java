@@ -41,7 +41,7 @@ public interface NspRepository {
 	
 	//public boolean studentLogin(long aadhar, String password);
 	
-	public boolean isStudentPresent(long studentId);
+	public boolean isStudentPresent(String email);
 	
 	public List<Student> fetchAllStudents();
 	

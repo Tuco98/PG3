@@ -65,8 +65,10 @@ public class NspRepositoryImpl implements NspRepository {
 	@Override
 	@Transactional
 	public long saveAStudent(Student student) {
+
 		Student s = em.merge(student);
 		return s.getStudentAadharNumber();
+
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class NspRepositoryImpl implements NspRepository {
 	@Override
 	@Transactional
 	public void saveANodal(Nodal nodal) {
-		// TODO Auto-generated method stub
+		
 		em.merge(nodal);
 
 	}
@@ -133,42 +135,41 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public boolean isInstitutePresent(String email) {
-		return (Long) em.createQuery("select count(i.id) from Institute i where i.instituteEmail = :em").setParameter("em", email)
-				.getSingleResult() == 1 ? true : false;
+		return (Long) em.createQuery("select count(i.id) from Institute i where i.instituteEmail = :em")
+				.setParameter("em", email).getSingleResult() == 1 ? true : false;
 	}
 
 	@Override
-	public boolean isStudentPresent(long studentId) {
-		return (Long) em.createQuery("select count(s.id) from Student s where s.studentAadharNumber = :id").setParameter("id", studentId)
-				.getSingleResult() == 1 ? true : false;
+	public boolean isStudentPresent(String email) {
+		return (Long) em.createQuery("select count(s.id) from Student s where s.studentEmail = :id")
+				.setParameter("id", email).getSingleResult() == 1 ? true : false;
 	}
 
 	@Override
 	public boolean isNodalPresent(int nodalId) {
-		return (Long) em.createQuery("select count(n.id) from Nodal n where n.nodalUid = :id").setParameter("id", nodalId)
-				.getSingleResult() == 1 ? true : false;
+		return (Long) em.createQuery("select count(n.id) from Nodal n where n.nodalUid = :id")
+				.setParameter("id", nodalId).getSingleResult() == 1 ? true : false;
 	}
 
 	@Override
 	public boolean isMinistryPresent(int ministryId) {
-		return (Integer) em.createQuery("select count(m.id) from Ministry m where m.ministryUid = :id").setParameter("id", ministryId)
-				.getSingleResult() == 1 ? true : false;
+		return (Integer) em.createQuery("select count(m.id) from Ministry m where m.ministryUid = :id")
+				.setParameter("id", ministryId).getSingleResult() == 1 ? true : false;
 	}
 
 	@Override
 	public Long findInstituteByIdAndPassword(long instituteId, String password) {
 
 		return (Long) em
-                .createQuery("select i.instituteId from Institute i where i.institudeId=:id and i.institutePassword=:psw")
-                .setParameter("id", instituteId)
-                .setParameter("psw", password)
-                .getSingleResult();
+				.createQuery(
+						"select i.instituteId from Institute i where i.institudeId=:id and i.institutePassword=:psw")
+				.setParameter("id", instituteId).setParameter("psw", password).getSingleResult();
 	}
 
 	@Override
 	public Student findStudentByIdAndPassword(long studentId, String password) {
-		String jpql="select s from Student s where s.studentAadharNumber=:id and i.studentPassword=:psw";
-		Query query=em.createQuery(jpql, Institute.class);
+		String jpql = "select s from Student s where s.studentAadharNumber=:id and i.studentPassword=:psw";
+		Query query = em.createQuery(jpql, Institute.class);
 		query.setParameter("id", studentId);
 		query.setParameter("psw", password);
 		return (Student) query.getSingleResult();
@@ -176,8 +177,8 @@ public class NspRepositoryImpl implements NspRepository {
 
 	@Override
 	public Nodal findNodalByIdAndPassword(long nodalId, String password) {
-		String jpql="select n from Nodal n where n.nodalUid=:id and i.nodalPassword=:psw";
-		Query query=em.createQuery(jpql, Institute.class);
+		String jpql = "select n from Nodal n where n.nodalUid=:id and i.nodalPassword=:psw";
+		Query query = em.createQuery(jpql, Institute.class);
 		query.setParameter("id", nodalId);
 		query.setParameter("psw", password);
 		return (Nodal) query.getSingleResult();

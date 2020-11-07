@@ -122,7 +122,7 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void registerAStudent(Student student) {
 		// TODO Auto-generated method stub
-		if(!nspRepo.isStudentPresent(student.getStudentAadharNumber())) {
+		if(!nspRepo.isStudentPresent(student.getStudentEmail())) {
 			student.setStudentStatus("Not Approved");
 			long id = nspRepo.saveAStudent(student);
 			
@@ -192,6 +192,7 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void registerANodal(Nodal nodal) {
 		if(!nspRepo.isNodalPresent(nodal.getNodalUid())) {
+			
 			nspRepo.saveANodal(nodal);
 			System.out.println("Nodal successfully registered");
 		}
