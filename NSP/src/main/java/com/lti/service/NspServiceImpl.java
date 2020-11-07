@@ -75,11 +75,11 @@ public class NspServiceImpl implements NspService {
 //			return nspRepo.findInstituteByIdAndPassword(userId, password);
 //		}
 		Institute ins = nspRepo.findAnInstituteById(instituteId);
-		if(ins.getInstitutePassword().equals(password)) {
+		if(ins.getInstitutePassword().equals(password) && ins.getInstituteStatus().equals("Approved")) {
 			return ins;
 		}
 		else {
-			return null;
+			throw new NspServiceException("Log in Id is not activated yet");
 		}
 		
 	}
@@ -103,6 +103,10 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void ministryUpdatesAnInstituteStatus(Institute institute, String status) {
 		institute.setInstituteMinistryApproval(status);
+		institute.setInstituteStatus(status);
+		String text="Your login "+institute.getInstituteId()+" is now activated.";
+        String subject="Registration Confirmation";
+        emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
 		nspRepo.saveAnInstitute(institute);
 
 	}

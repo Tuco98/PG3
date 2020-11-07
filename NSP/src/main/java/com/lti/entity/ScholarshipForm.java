@@ -103,7 +103,7 @@ public class ScholarshipForm {
 	double tutionFee;
 	double otherFee;
 	
-	boolean isDisabled;
+	String isDisabled;
 	String typeOfDisabilty;
 	double percentageOfDisability;
 	String maritalStatus;
@@ -396,12 +396,14 @@ public class ScholarshipForm {
 	public void setOtherFee(double otherFee) {
 		this.otherFee = otherFee;
 	}
+	
+	
 
-	public boolean isDisabled() {
+	public String getIsDisabled() {
 		return isDisabled;
 	}
 
-	public void setDisabled(boolean isDisabled) {
+	public void setIsDisabled(String isDisabled) {
 		this.isDisabled = isDisabled;
 	}
 
