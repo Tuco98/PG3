@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,7 +68,7 @@ public class InstituteController {
 		}
 	}
 	
-	@PostMapping("/viewUnapprovedStudents")  //tested
+	@GetMapping("/viewUnapprovedStudents")  //tested
 	public List<Student> viewUnapprovedStudents(@RequestParam("instituteId") long instituteId) {
 		try {
 			
@@ -82,7 +83,7 @@ public class InstituteController {
 		}
 	}
 	
-	@PostMapping("/viewUnapprovedFormsByInstitute")
+	@GetMapping("/viewUnapprovedFormsByInstitute")
 	public List<ScholarshipForm> viewUnapprovedFormsByInstitute(@RequestParam("instituteId") long instituteId) {
 		try {
 			
