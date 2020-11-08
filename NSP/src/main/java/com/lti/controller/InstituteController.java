@@ -2,6 +2,8 @@ package com.lti.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,6 +115,11 @@ public class InstituteController {
 		}
 	}
 	
+	@GetMapping("/fetchInstituteProfile")
+    public Institute fetchInstituteProfile(@RequestParam("instituteId") long instituteId, HttpServletRequest request) {
+        Institute ins=nspService.getAnInstituteById(instituteId);
+        return ins;
+    }
 	//forgot Password
 	//fetch profile
 

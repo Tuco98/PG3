@@ -163,6 +163,21 @@ public class StudentController {
         
         return nspService.findInstituteOfStudent(studentId);
     }
+	
+	@GetMapping("/showStatus")
+	public String showFormStatusOfStudent(@RequestParam("studentId") long studentId) {
+		return nspService.getAStudentById(studentId).getForm().getStatus();
+	}
+	
+	@PostMapping("/studentForgotPassword")
+	public String studentForgotPassword(@RequestParam("studentId") long studentId,@RequestParam("email") String email) {
+		try {
+			return nspService.studentForgotPassword(studentId, email);
+		}
+		catch (NspServiceException e) {
+			return e.getMessage();
+		}
+	}
 
 	// forgot Password
 	// checkFormStatus

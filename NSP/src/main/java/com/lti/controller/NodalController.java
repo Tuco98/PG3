@@ -2,6 +2,8 @@ package com.lti.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,4 +120,10 @@ public class NodalController {
 			return null;
 		}
 	}
+	
+	@GetMapping("/fetchNodalProfile")
+    public Nodal fetchNodalProfile(@RequestParam("nodalUid") int nodalUid, HttpServletRequest request) {
+        Nodal nd=nspService.getANodalById(nodalUid);
+        return nd;
+    }
 }

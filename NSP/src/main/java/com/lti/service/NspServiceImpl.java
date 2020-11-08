@@ -411,4 +411,20 @@ public class NspServiceImpl implements NspService {
 		return nspRepo.findInstituteOfStudent(studentId);
 	}
 
+	@Override
+	public String studentForgotPassword(long studentId, String email) {
+		Student st=nspRepo.findAStudentById(studentId);
+		if(st.getStudentEmail().equals(email)) {
+			String text = "You password is "+st.getStudentPassword();
+			String subject = "Password for given aadhar";
+			emailService.sendEmailForNewRegistration(email, text, subject);
+			return st.getStudentPassword();
+
+		}
+		else {
+			throw new NspServiceException("Invalid crediantials");
+		}
+		
+	}
+
 }
