@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,11 +89,26 @@ public class NodalController {
 		}
 	}
 	
-	@PostMapping("/viewUnapprovedFormsByNodal")
+	@GetMapping("/viewUnapprovedFormsByNodal")
 	public List<ScholarshipForm> viewUnapprovedFormsByNodal() {
 		try {
 			
 			List<ScholarshipForm> list = nspService.fetchFormsUsingNodalStatus("Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@GetMapping("/viewUnapprovedInstitutesByNodal")
+	public List<Institute> viewUnapprovedInstitutesByNodal() {
+		try {
+			
+			List<Institute> list = nspService.fetchAllInstitutesByNodalStatus("Not Approved");
 			
 			return list;
 		}

@@ -12,18 +12,17 @@ import javax.persistence.Table;
 public class Ministry {
 	
 	@Id
-	@GeneratedValue
 	@Column(name="MinistryUID")
-	int ministryUid;
+	String ministryUid;
 	
 	@Column(name="MinistryPassword")
 	String ministryPassword;
 
-	public int getMinistryUid() {
+	public String getMinistryUid() {
 		return ministryUid;
 	}
 
-	public void setMinistryUid(int ministryUid) {
+	public void setMinistryUid(String ministryUid) {
 		this.ministryUid = ministryUid;
 	}
 

@@ -125,7 +125,7 @@ public class NspServiceImpl implements NspService {
 		List<Institute> institutes=nspRepo.fetchAllInstitutes();
 		List<Institute> ins=new ArrayList<>();
 		for (Institute institute : institutes) {
-			if(institute.getInstituteMinistryApproval().equals(status)) {
+			if(institute.getInstituteMinistryApproval().equals(status) && institute.getInstituteNodalOfficerApproval().equals("Approved")) {
 				ins.add(institute);
 			}
 		}

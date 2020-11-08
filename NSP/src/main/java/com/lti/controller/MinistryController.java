@@ -4,18 +4,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.lti.dto.InsLoginStatus;
 import com.lti.dto.NodalLoginStatus;
 import com.lti.dto.Status;
+import com.lti.dto.StudentLoginDto;
+import com.lti.dto.StudentLoginStatus;
 import com.lti.dto.Status.StatusType;
 import com.lti.entity.Institute;
+import com.lti.entity.Ministry;
 import com.lti.entity.Nodal;
 import com.lti.entity.ScholarshipForm;
+import com.lti.entity.Student;
 import com.lti.exception.NspServiceException;
 import com.lti.service.NspService;
 
@@ -25,6 +30,27 @@ public class MinistryController {
 	
 	@Autowired
 	private NspService nspService;
+	
+	@PostMapping("/ministryLogin")
+	public Status login(@RequestBody Ministry ministry) {
+		try {
+			if(ministry.getMinistryUid().equals("admin") && ministry.getMinistryPassword().equals("admin")) {
+				Status status = new Status();
+				status.setStatus(StatusType.SUCCESS);
+				status.setMessage("Login Successful");
+				return status;
+				
+			}
+			else {
+				throw new NspServiceException("Wrong credentials");
+			}
+		} catch (NspServiceException e) {
+			InsLoginStatus loginStatus = new InsLoginStatus();
+			loginStatus.setStatus(StatusType.FAILURE);
+			loginStatus.setMessage(e.getMessage());
+			return loginStatus;
+		}
+	}
 	
 	@PostMapping(path = "/registerNodal")
 	public Status addNodal(@RequestBody Nodal nodal) {
@@ -84,11 +110,26 @@ public class MinistryController {
 		}
 	}
 	
-	@PostMapping("/viewUnapprovedFormsByMinistry")
+	@GetMapping("/viewUnapprovedFormsByMinistry")
 	public List<ScholarshipForm> viewUnapprovedFormsByIMinistry() {
 		try {
 			
 			List<ScholarshipForm> list = nspService.fetchFormsUsingMinistryStatus("Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@GetMapping("/viewUnapprovedInstitutesByMinistry")
+	public List<Institute> viewUnapprovedInstitutesByMinistry() {
+		try {
+			
+			List<Institute> list = nspService.fetchAllInstitutesByMinistryStatus("Not Approved");
 			
 			return list;
 		}
