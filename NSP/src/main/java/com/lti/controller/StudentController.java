@@ -77,10 +77,10 @@ public class StudentController {
 
 	@PostMapping("/applyForScheme")
 	public Status applyForAScholarship(@RequestParam("schemeId") long schemeId,
-			@RequestParam("studentId") long studentId, @RequestParam("instituteId") long instituteId,
+			@RequestParam("studentId") long studentId, @RequestParam("instituteId") String instituteId,
 			@RequestBody ScholarshipForm form) {
 		try {
-			Institute ins = nspService.getAnInstituteById(instituteId);
+			Institute ins = nspService.getAnInstituteById(Long.parseLong(instituteId));
 			Student stu = nspService.getAStudentById(studentId);
 
 			form.setSchemeUid(schemeId);

@@ -178,7 +178,7 @@ public class Student {
 	}
 
 	//@JsonIgnore
-	@JsonIgnore
+	//@JsonIgnore
 	public Institute getInstitute() {
 		return institute;
 	}
