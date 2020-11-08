@@ -22,36 +22,35 @@ public class NspServiceImpl implements NspService {
 
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private NspRepository nspRepo;
-	
+
 	@Override
 	public void addAScheme(Scheme scheme) {
-		
+
 		nspRepo.saveAScheme(scheme);
 
 	}
 
 	@Override
 	public Scheme findAScheme(long schemeId) {
-		
+
 		return nspRepo.findAScheme(schemeId);
 	}
 
 	@Override
 	public long registerAnInstitute(Institute institute) {
-		if(!nspRepo.isInstitutePresent(institute.getInstituteEmail())) {
+		if (!nspRepo.isInstitutePresent(institute.getInstituteEmail())) {
 			institute.setInstituteNodalOfficerApproval("Not Approved");
 			institute.setInstituteMinistryApproval("Not Approved");
-			long id=nspRepo.saveAnInstitute(institute);
-            String text="Successfully registered. Your id is "+id +"\n You Will be notified after Verification.";
-            String subject="Registration Confirmation";
-            emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
+			long id = nspRepo.saveAnInstitute(institute);
+			String text = "Successfully registered. Your id is " + id + "\n You Will be notified after Verification.";
+			String subject = "Registration Confirmation";
+			emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
 			return id;
-			
-		}
-		else {
+
+		} else {
 			throw new NspServiceException("Already exists");
 		}
 	}
@@ -60,7 +59,6 @@ public class NspServiceImpl implements NspService {
 	public Institute getAnInstituteById(long instituteId) {
 		return nspRepo.findAnInstituteById(instituteId);
 	}
-
 
 	@Override
 	public List<Institute> fetchAllInstitutes() {
@@ -76,13 +74,12 @@ public class NspServiceImpl implements NspService {
 //			return nspRepo.findInstituteByIdAndPassword(userId, password);
 //		}
 		Institute ins = nspRepo.findAnInstituteById(instituteId);
-		if(ins.getInstitutePassword().equals(password) && ins.getInstituteStatus().equals("Approved")) {
+		if (ins.getInstitutePassword().equals(password) && ins.getInstituteStatus().equals("Approved")) {
 			return ins;
-		}
-		else {
+		} else {
 			throw new NspServiceException("Log in Id is not activated yet");
 		}
-		
+
 	}
 
 	@Override
@@ -93,12 +90,12 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public void instituteUpdatesAForm(ScholarshipForm form, String status) {
-		
-		if(status.equals("Rejected")) {
+
+		if (status.equals("Rejected")) {
 			form.setInstituteVerificationStatus(status);
 			nodalUpdatesAForm(form, status);
 		}
-		
+
 		else {
 			form.setInstituteVerificationStatus(status);
 			nspRepo.saveAScholarshipForm(form);
@@ -106,26 +103,24 @@ public class NspServiceImpl implements NspService {
 
 	}
 
-	
-
-	
 	@Override
 	public void ministryUpdatesAnInstituteStatus(Institute institute, String status) {
 		institute.setInstituteMinistryApproval(status);
 		institute.setInstituteStatus(status);
-		String text="Your login "+institute.getInstituteId()+" is now activated.";
-        String subject="Registration Confirmation";
-        emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
+		String text = "Your login " + institute.getInstituteId() + " is now activated.";
+		String subject = "Registration Confirmation";
+		emailService.sendEmailForNewRegistration(institute.getInstituteEmail(), text, subject);
 		nspRepo.saveAnInstitute(institute);
 
 	}
 
 	@Override
 	public List<Institute> fetchAllInstitutesByMinistryStatus(String status) {
-		List<Institute> institutes=nspRepo.fetchAllInstitutes();
-		List<Institute> ins=new ArrayList<>();
+		List<Institute> institutes = nspRepo.fetchAllInstitutes();
+		List<Institute> ins = new ArrayList<>();
 		for (Institute institute : institutes) {
-			if(institute.getInstituteMinistryApproval().equals(status) && institute.getInstituteNodalOfficerApproval().equals("Approved")) {
+			if (institute.getInstituteMinistryApproval().equals(status)
+					&& institute.getInstituteNodalOfficerApproval().equals("Approved")) {
 				ins.add(institute);
 			}
 		}
@@ -135,18 +130,17 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void registerAStudent(Student student) {
 		// TODO Auto-generated method stub
-		if(!nspRepo.isStudentPresent(student.getStudentEmail())) {
+		if (!nspRepo.isStudentPresent(student.getStudentEmail())) {
 			student.setStudentStatus("Not Approved");
 			long id = nspRepo.saveAStudent(student);
-			
-			String text="Successfully registered. Your id is "+id;
-            String subject="Registration Confirmation";
-            emailService.sendEmailForNewRegistration(student.getStudentEmail(), text, subject);
-		}
-		else {
+
+			String text = "Successfully registered. Your id is " + id;
+			String subject = "Registration Confirmation";
+			emailService.sendEmailForNewRegistration(student.getStudentEmail(), text, subject);
+		} else {
 			throw new NspServiceException("Student already registered");
 		}
-		
+
 	}
 
 	@Override
@@ -163,61 +157,55 @@ public class NspServiceImpl implements NspService {
 //		else {
 //			return nspRepo.findStudentByIdAndPassword(aadhar, password);
 //		}
-		
+
 		Student student = nspRepo.findAStudentById(aadhar);
-		
-		if(student.getStudentPassword().equals(password)) {
+
+		if (student.getStudentPassword().equals(password)) {
 			return student;
-		}
-		else {
+		} else {
 			return null;
 		}
-		
-		
+
 	}
 
 	@Override
 	public List<Student> fetchAllStudents() {
-		
+
 		return nspRepo.fetchAllStudents();
 	}
 
 	@Override
 	public List<Student> fetchStudentsOfParticularInstituteByStatus(long instituteId, String status) {
-		
-//		Institute ins = nspRepo.findAnInstituteById(instituteId);
+
+		Institute ins = nspRepo.findAnInstituteById(instituteId);
 //		
-//		List<Student> st= ins.getStudents();
-		
-		List<Student> students=nspRepo.fetchAllStudents();
-		List<Student> st=new ArrayList<>();
-		
-		for (Student student : students) {
-			if(student.getStudentStatus().equals(status) && (student.getInstitute().getInstituteId()==instituteId)) {
-				//added null else getting infinite loop
-				//student.setInstitute(null);
-				st.add(student);
-			}
-		}
+		List<Student> st = ins.getStudents();
+
+		/*
+		 * for (Student student : students) { if
+		 * (student.getStudentStatus().equals(status) &&
+		 * (student.getInstitute().getInstituteId() == instituteId)) { // added null
+		 * else getting infinite loop // student.setInstitute(null); st.add(student); }
+		 * }
+		 */
 		return st;
 	}
 
 	@Override
 	public void registerANodal(Nodal nodal) {
-		if(!nspRepo.isNodalPresent(nodal.getNodalUid())) {
-			
+		if (!nspRepo.isNodalPresent(nodal.getNodalUid())) {
+
 			nspRepo.saveANodal(nodal);
 			System.out.println("Nodal successfully registered");
-		}
-		else {
+		} else {
 			System.out.println("Registration failed");
-	}
+		}
 
 	}
 
 	@Override
 	public Nodal getANodalById(int nodalUid) {
-		
+
 		return nspRepo.findANodalById(nodalUid);
 	}
 
@@ -227,29 +215,26 @@ public class NspServiceImpl implements NspService {
 		 * if(nspRepo.isNodalPresent(userId)) { return null; } else { return
 		 * nspRepo.findNodalByIdAndPassword(userId, password); }
 		 */
-		
-		Nodal nodal=nspRepo.findANodalById(userId);
-		if(nodal.getNodalPassword().equals(password)) {
+
+		Nodal nodal = nspRepo.findANodalById(userId);
+		if (nodal.getNodalPassword().equals(password)) {
 			return nodal;
-		}
-		else {
+		} else {
 			throw new NspServiceException("Login failed");
 		}
 	}
-	
 
 	@Override
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus) {
-		if(formStatus.equals("Rejected")) {
+		if (formStatus.equals("Rejected")) {
 			form.setNodalVerificationStatus(formStatus);
-			
+
 			ministryUpdatesAFormStatus(form, formStatus);
-			
+
 //			form.setMinistryVerificationStatus(formStatus);
 //			form.setStatus(formStatus);
 //			form.setDateOfApproval(LocalDate.now());
-		}
-		else {
+		} else {
 			form.setNodalVerificationStatus(formStatus);
 			nspRepo.saveAScholarshipForm(form);
 		}
@@ -272,27 +257,27 @@ public class NspServiceImpl implements NspService {
 		 * if(scholarshipForm.getAadharNumber()==form.getAadharNumber()) { throw new
 		 * NspServiceException("You have already applied for this scheme"); }
 		 *
-		}*/
-		if(nspRepo.hasStudentAppliedForAForm(form.getStudent().getStudentAadharNumber())) {
-			throw new NspServiceException("You have already applied for a scheme"); 
-		}
-		else {
-			
+		 * }
+		 */
+		if (nspRepo.hasStudentAppliedForAForm(form.getStudent().getStudentAadharNumber())) {
+			throw new NspServiceException("You have already applied for a scheme");
+		} else {
+
 			form.setInstituteVerificationStatus("Not Approved");
 			form.setNodalVerificationStatus("Not Approved");
 			form.setMinistryVerificationStatus("Not Approved");
 			form.setStatus("Not Approved");
-			
+
 			long id = nspRepo.saveAScholarshipForm(form);
-			
-			String text="Successfully registered. Your form id is "+id;
-	        String subject="Form Successfully applied";
-	        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
-			
+
+			String text = "Successfully registered. Your form id is " + id;
+			String subject = "Form Successfully applied";
+			emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
+
 		}
-		
+
 	}
-	
+
 	@Override
 	public void updateAScholarshipForm(ScholarshipForm form) {
 		nspRepo.saveAScholarshipForm(form);
@@ -300,22 +285,22 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public ScholarshipForm getAScholarshipFormById(long form_id) {
-		
+
 		return nspRepo.findAScholarshipFormById(form_id);
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchAllScholarshipForms() {
-		
+
 		return nspRepo.fetchAllScholarshipForms();
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchAllFormsByInstituteStatus(String status) {
-		List<ScholarshipForm> forms=nspRepo.fetchAllScholarshipForms();
-		List<ScholarshipForm> sf=new ArrayList<>();
+		List<ScholarshipForm> forms = nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> sf = new ArrayList<>();
 		for (ScholarshipForm scholarshipForm : forms) {
-			if(scholarshipForm.getInstituteVerificationStatus().equals(status)) {
+			if (scholarshipForm.getInstituteVerificationStatus().equals(status)) {
 				sf.add(scholarshipForm);
 			}
 		}
@@ -324,10 +309,10 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<ScholarshipForm> fetchAllFormsByNodalStatus(String status) {
-		List<ScholarshipForm> forms=nspRepo.fetchAllScholarshipForms();
-		List<ScholarshipForm> sf=new ArrayList<>();
+		List<ScholarshipForm> forms = nspRepo.fetchAllScholarshipForms();
+		List<ScholarshipForm> sf = new ArrayList<>();
 		for (ScholarshipForm scholarshipForm : forms) {
-			if(scholarshipForm.getNodalVerificationStatus().equals(status)) {
+			if (scholarshipForm.getNodalVerificationStatus().equals(status)) {
 				sf.add(scholarshipForm);
 			}
 		}
@@ -336,16 +321,15 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<ScholarshipForm> fetchFormsOfParticularInstituteByInstituteStatus(long instituteId, String status) {
-		/*List<ScholarshipForm> students=nspRepo.fetchAllScholarshipForms();
-		List<ScholarshipForm> st=new ArrayList<>();
-		
-		for (ScholarshipForm student : students) {
-			if(student.getInstituteVerificationStatus().equals(status) && (student.getInstituteObj().getInstituteId()==instituteId)) {
-				//added null else getting infinite loop
-				//student.setInstitute(null);
-				st.add(student);
-			}
-		}*/
+		/*
+		 * List<ScholarshipForm> students=nspRepo.fetchAllScholarshipForms();
+		 * List<ScholarshipForm> st=new ArrayList<>();
+		 * 
+		 * for (ScholarshipForm student : students) {
+		 * if(student.getInstituteVerificationStatus().equals(status) &&
+		 * (student.getInstituteObj().getInstituteId()==instituteId)) { //added null
+		 * else getting infinite loop //student.setInstitute(null); st.add(student); } }
+		 */
 		return nspRepo.fetchFormsOfAnInstituteWithInstituteStatus(instituteId, status);
 	}
 
@@ -362,18 +346,18 @@ public class NspServiceImpl implements NspService {
 		form.setDateOfApproval(LocalDate.now());
 		nspRepo.saveAScholarshipForm(form);
 		long id = form.getFormId();
-		String text="Your scholarship form with ID: "+id+" is "+ status;
-        String subject="Your form is approved";
-        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
+		String text = "Your scholarship form with ID: " + id + " is " + status;
+		String subject = "Your form is approved";
+		emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
 
 	}
 
 	@Override
 	public List<Institute> fetchAllInstitutesByNodalStatus(String status) {
-		List<Institute> institutes=nspRepo.fetchAllInstitutes();
-		List<Institute> ins=new ArrayList<>();
+		List<Institute> institutes = nspRepo.fetchAllInstitutes();
+		List<Institute> ins = new ArrayList<>();
 		for (Institute institute : institutes) {
-			if(institute.getInstituteNodalOfficerApproval().equals(status)) {
+			if (institute.getInstituteNodalOfficerApproval().equals(status)) {
 				ins.add(institute);
 			}
 		}
@@ -382,10 +366,10 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<Institute> fetchAllInstitutesByStatus(String status) {
-		List<Institute> institutes=nspRepo.fetchAllInstitutes();
-		List<Institute> ins=new ArrayList<>();
+		List<Institute> institutes = nspRepo.fetchAllInstitutes();
+		List<Institute> ins = new ArrayList<>();
 		for (Institute institute : institutes) {
-			if(institute.getInstituteStatus().equals(status)) {
+			if (institute.getInstituteStatus().equals(status)) {
 				ins.add(institute);
 			}
 		}
@@ -394,30 +378,32 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status) {
-		
+
 		List<ScholarshipForm> list = nspRepo.fetchAllScholarshipForms();
 		List<ScholarshipForm> forms = new ArrayList<>();
-		for(ScholarshipForm sc: list) {
-			if(sc.getInstituteVerificationStatus().equals("Approved") && sc.getNodalVerificationStatus().equals(status)) {
+		for (ScholarshipForm sc : list) {
+			if (sc.getInstituteVerificationStatus().equals("Approved")
+					&& sc.getNodalVerificationStatus().equals(status)) {
 				forms.add(sc);
 			}
 		}
-		//return nspRepo.fetchFormsUsingNodalStatus(status);
+		// return nspRepo.fetchFormsUsingNodalStatus(status);
 		return forms;
 	}
 
 	@Override
 	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status) {
-		//return nspRepo.fetchFormsUsingMinistryStatus(status);
+		// return nspRepo.fetchFormsUsingMinistryStatus(status);
 		List<ScholarshipForm> list = nspRepo.fetchAllScholarshipForms();
 		List<ScholarshipForm> forms = new ArrayList<>();
-		for(ScholarshipForm sc: list) {
-			if(sc.getNodalVerificationStatus().equals("Not Approved") && sc.getMinistryVerificationStatus().equals(status)) {
+		for (ScholarshipForm sc : list) {
+			if (sc.getNodalVerificationStatus().equals("Not Approved")
+					&& sc.getMinistryVerificationStatus().equals(status)) {
 				forms.add(sc);
 			}
 		}
-		//return nspRepo.fetchFormsUsingNodalStatus(status);
+		// return nspRepo.fetchFormsUsingNodalStatus(status);
 		return forms;
 	}
-	
+
 }

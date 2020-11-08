@@ -17,13 +17,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 //@Table( name = "form_demo")
 @Table( name = "tbl_scholarship_form")
 @NamedQuery(name = "fetchAllForms", query="select sf from ScholarshipForm sf")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","student"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","student"})
 public class ScholarshipForm {
 	
 	@Id
@@ -65,11 +66,12 @@ public class ScholarshipForm {
 	@Column( name = "status")
 	String status;
 	
-	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn( name = "student_aadhar_number")
 	Student student;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn( name = "institute_id")
 	Institute instituteObj;
@@ -208,6 +210,7 @@ public class ScholarshipForm {
 		this.status = status;
 	}
 
+	@JsonIgnore
 	public Student getStudent() {
 		return student;
 	}
@@ -216,6 +219,7 @@ public class ScholarshipForm {
 		this.student = student;
 	}
 
+	@JsonIgnore
 	public Institute getInstituteObj() {
 		return instituteObj;
 	}

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "tbl_institutes")
 @NamedQuery(name = "fetchAllInstitutes", query = "select i from Institute i")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","students","forms"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","students","forms"})
 public class Institute {
 	
 	@Id

@@ -67,7 +67,7 @@ public class InstituteController {
 		}
 	}
 	
-	@PostMapping("/viewUnapprovedStudents")
+	@PostMapping("/viewUnapprovedStudents")  //tested
 	public List<Student> viewUnapprovedStudents(@RequestParam("instituteId") long instituteId) {
 		try {
 			
