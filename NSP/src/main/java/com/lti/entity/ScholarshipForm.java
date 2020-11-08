@@ -78,9 +78,9 @@ public class ScholarshipForm {
 //	@JoinColumn( name = "nodal_uid")
 //	Nodal nodal;
 	
-	
-	
-	
+	@Column(name = "scheme_uid")
+	long schemeUid;
+
 	String class10RollNumber;
 	String class10BoardName;
 	String class10PassingYear;
@@ -100,6 +100,15 @@ public class ScholarshipForm {
 	String percentageOfDisability;
 	String maritalStatus;
 	String parentProfession;
+	
+	//Documents
+	String domicileCertificate;
+	String studentPic;
+	String prevYearMarksheet;
+	String class10Marksheet;
+	String class12Marksheet;
+	String aadharCard;
+	
 
 	public long getFormId() {
 		return formId;
@@ -343,6 +352,62 @@ public class ScholarshipForm {
 
 	public void setParentProfession(String parentProfession) {
 		this.parentProfession = parentProfession;
+	}
+
+	public String getDomicileCertificate() {
+		return domicileCertificate;
+	}
+
+	public void setDomicileCertificate(String domicileCertificate) {
+		this.domicileCertificate = domicileCertificate;
+	}
+
+	public String getStudentPic() {
+		return studentPic;
+	}
+
+	public void setStudentPic(String studentPic) {
+		this.studentPic = studentPic;
+	}
+
+	public String getPrevYearMarksheet() {
+		return prevYearMarksheet;
+	}
+
+	public void setPrevYearMarksheet(String prevYearMarksheet) {
+		this.prevYearMarksheet = prevYearMarksheet;
+	}
+
+	public String getClass10Marksheet() {
+		return class10Marksheet;
+	}
+
+	public void setClass10Marksheet(String class10Marksheet) {
+		this.class10Marksheet = class10Marksheet;
+	}
+
+	public String getClass12Marksheet() {
+		return class12Marksheet;
+	}
+
+	public void setClass12Marksheet(String class12Marksheet) {
+		this.class12Marksheet = class12Marksheet;
+	}
+
+	public String getAadharCard() {
+		return aadharCard;
+	}
+
+	public void setAadharCard(String aadharCard) {
+		this.aadharCard = aadharCard;
+	}
+
+	public long getSchemeUid() {
+		return schemeUid;
+	}
+
+	public void setSchemeUid(long schemeUid) {
+		this.schemeUid = schemeUid;
 	}
 	
 	

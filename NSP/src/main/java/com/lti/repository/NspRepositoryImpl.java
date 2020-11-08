@@ -197,7 +197,7 @@ public class NspRepositoryImpl implements NspRepository {
 		String st = "Approved";
 		String jpql="select s from ScholarshipForm s where s.instituteVerificationStatus=:ivs and s.nodalVerificationStatus=:nvs";
 		Query query = em.createQuery(jpql, ScholarshipForm.class);
-		query.setParameter("ivs", status);
+		query.setParameter("ivs", st);
 		query.setParameter("nvs", status);
 		return query.getResultList();		
 	}
@@ -210,5 +210,14 @@ public class NspRepositoryImpl implements NspRepository {
 		query.setParameter("nvs", st);
 		query.setParameter("mvs", status);
 		return query.getResultList();
+	}
+	
+	@Override
+	public boolean hasStudentAppliedForAForm(long studentId) {
+		return (Long)
+                em
+                .createQuery("select count(s.formId) from ScholarshipForm s where s.student.studentAadharNumber = :id")
+                .setParameter("id", studentId)
+                .getSingleResult() == 1 ? true : false;
 	}
 }

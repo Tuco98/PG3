@@ -47,6 +47,8 @@ public interface NspRepository {
 	
 	public Student findStudentByIdAndPassword(long studentId, String password);
 	
+	public boolean hasStudentAppliedForAForm(long studentId);
+	
 	//service->public List<Student> fetchStudentsOfParticularInstituteByStatus(long instituteId, String status);
 	
 	

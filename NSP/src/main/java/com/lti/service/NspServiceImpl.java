@@ -273,17 +273,29 @@ public class NspServiceImpl implements NspService {
 		 * NspServiceException("You have already applied for this scheme"); }
 		 *
 		}*/
-		form.setInstituteVerificationStatus("Not Approved");
-		form.setNodalVerificationStatus("Not Approved");
-		form.setMinistryVerificationStatus("Not Approved");
-		form.setStatus("Not Approved");
+		if(nspRepo.hasStudentAppliedForAForm(form.getStudent().getStudentAadharNumber())) {
+			throw new NspServiceException("You have already applied for a scheme"); 
+		}
+		else {
+			
+			form.setInstituteVerificationStatus("Not Approved");
+			form.setNodalVerificationStatus("Not Approved");
+			form.setMinistryVerificationStatus("Not Approved");
+			form.setStatus("Not Approved");
+			
+			long id = nspRepo.saveAScholarshipForm(form);
+			
+			String text="Successfully registered. Your form id is "+id;
+	        String subject="Form Successfully applied";
+	        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
+			
+		}
 		
-		long id = nspRepo.saveAScholarshipForm(form);
-		
-		String text="Successfully registered. Your form id is "+id;
-        String subject="Form Successfully applied";
-        emailService.sendEmailForNewRegistration(form.getStudent().getStudentEmail(), text, subject);
-		
+	}
+	
+	@Override
+	public void updateAScholarshipForm(ScholarshipForm form) {
+		nspRepo.saveAScholarshipForm(form);
 	}
 
 	@Override
