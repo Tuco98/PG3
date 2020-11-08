@@ -103,17 +103,17 @@ public class ScholarshipForm {
 	String maritalStatus;
 	String parentProfession;
 	
-	long instituteCode;
-	
-	
-
-	public long getInstituteCode() {
-		return instituteCode;
-	}
-
-	public void setInstituteCode(long instituteCode) {
-		this.instituteCode = instituteCode;
-	}
+//	long instituteCode;
+//	
+//	
+//
+//	public long getInstituteCode() {
+//		return instituteCode;
+//	}
+//
+//	public void setInstituteCode(long instituteCode) {
+//		this.instituteCode = instituteCode;
+//	}
 
 	//Documents
 	String domicileCertificate;
