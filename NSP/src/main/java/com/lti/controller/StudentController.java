@@ -157,6 +157,12 @@ public class StudentController {
         Student stu = nspService.getAStudentById(studentId);
         return stu;
     }
+	
+	@GetMapping("/getInstituteId")
+	public long getInstituteIdofStudent(@RequestParam("studentId") long studentId, HttpServletRequest request) {
+        
+        return nspService.findInstituteOfStudent(studentId);
+    }
 
 	// forgot Password
 	// checkFormStatus

@@ -220,4 +220,13 @@ public class NspRepositoryImpl implements NspRepository {
                 .setParameter("id", studentId)
                 .getSingleResult() == 1 ? true : false;
 	}
+
+	@Override
+	public Long findInstituteOfStudent(long studentId) {
+		return (Long)
+                em
+                .createQuery("select s.institute.instituteId from Student s where s.studentAadharNumber = :id")
+                .setParameter("id", studentId)
+                .getSingleResult();
+	}
 }

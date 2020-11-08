@@ -25,6 +25,8 @@ public interface NspRepository {
 	
 	public Long findInstituteByIdAndPassword(long instituteId, String password);
 	
+	public Long findInstituteOfStudent(long studentId);
+	
 //	public boolean instituteLogin(long userId, String password);
 	
 	//These methods will be written in service

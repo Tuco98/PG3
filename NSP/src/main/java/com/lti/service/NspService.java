@@ -33,6 +33,8 @@ public interface NspService {
 	public void ministryUpdatesAnInstituteStatus(Institute institute, String status);
 	
 	public List<Institute> fetchAllInstitutesByMinistryStatus(String status);
+	
+	public Long findInstituteOfStudent(long studentId);
 
 	// Students services
 

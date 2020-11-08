@@ -406,4 +406,9 @@ public class NspServiceImpl implements NspService {
 		return forms;
 	}
 
+	@Override
+	public Long findInstituteOfStudent(long studentId) {
+		return nspRepo.findInstituteOfStudent(studentId);
+	}
+
 }
