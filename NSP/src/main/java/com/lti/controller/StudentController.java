@@ -3,9 +3,12 @@ package com.lti.controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -148,6 +151,12 @@ public class StudentController {
 		status.setMessage("Uploaded!");
 		return status;
 	}
+	
+	@GetMapping("/fetchStudentProfile")
+    public Student fetchStudentProfile(@RequestParam("studentId") long studentId, HttpServletRequest request) {
+        Student stu = nspService.getAStudentById(studentId);
+        return stu;
+    }
 
 	// forgot Password
 	// checkFormStatus
