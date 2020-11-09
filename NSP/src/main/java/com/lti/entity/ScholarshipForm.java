@@ -122,7 +122,44 @@ public class ScholarshipForm {
 	String class10Marksheet;
 	String class12Marksheet;
 	String aadharCard;
+	String bankPassbook;
+	String instituteIdCard;
+	String casteIncomeCertificate;
+	String feeReceiptOfCurrentYear;
 	
+	
+
+	public String getBankPassbook() {
+		return bankPassbook;
+	}
+
+	public void setBankPassbook(String bankPassbook) {
+		this.bankPassbook = bankPassbook;
+	}
+
+	public String getInstituteIdCard() {
+		return instituteIdCard;
+	}
+
+	public void setInstituteIdCard(String instituteIdCard) {
+		this.instituteIdCard = instituteIdCard;
+	}
+
+	public String getCasteIncomeCertificate() {
+		return casteIncomeCertificate;
+	}
+
+	public void setCasteIncomeCertificate(String casteIncomeCertificate) {
+		this.casteIncomeCertificate = casteIncomeCertificate;
+	}
+
+	public String getFeeReceiptOfCurrentYear() {
+		return feeReceiptOfCurrentYear;
+	}
+
+	public void setFeeReceiptOfCurrentYear(String feeReceiptOfCurrentYear) {
+		this.feeReceiptOfCurrentYear = feeReceiptOfCurrentYear;
+	}
 
 	public long getFormId() {
 		return formId;

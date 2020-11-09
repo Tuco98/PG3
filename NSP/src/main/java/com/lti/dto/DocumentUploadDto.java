@@ -11,6 +11,34 @@ public class DocumentUploadDto {
 	MultipartFile class10Marksheet;
 	MultipartFile class12Marksheet;
 	MultipartFile aadharCard;
+	MultipartFile bankPassbook;
+	MultipartFile instituteIdCard;
+	MultipartFile casteIncomeCertificate;
+	MultipartFile feeReceiptOfCurrentYear;
+	public MultipartFile getBankPassbook() {
+		return bankPassbook;
+	}
+	public void setBankPassbook(MultipartFile bankPassbook) {
+		this.bankPassbook = bankPassbook;
+	}
+	public MultipartFile getInstituteIdCard() {
+		return instituteIdCard;
+	}
+	public void setInstituteIdCard(MultipartFile instituteIdCard) {
+		this.instituteIdCard = instituteIdCard;
+	}
+	public MultipartFile getCasteIncomeCertificate() {
+		return casteIncomeCertificate;
+	}
+	public void setCasteIncomeCertificate(MultipartFile casteIncomeCertificate) {
+		this.casteIncomeCertificate = casteIncomeCertificate;
+	}
+	public MultipartFile getFeeReceiptOfCurrentYear() {
+		return feeReceiptOfCurrentYear;
+	}
+	public void setFeeReceiptOfCurrentYear(MultipartFile feeReceiptOfCurrentYear) {
+		this.feeReceiptOfCurrentYear = feeReceiptOfCurrentYear;
+	}
 	public long getFormId() {
 		return formId;
 	}

@@ -108,7 +108,7 @@ public class StudentController {
 
 	@PostMapping("/docs-upload")
 	public Status upload(DocumentUploadDto docDto) {
-		String docUploadLocation = "d:/uploads/";
+		String docUploadLocation = "G:/uploads/";
 		String domicileCertificate = "domicileCertificate" + docDto.getFormId();
 		String targetFile1 = docUploadLocation + domicileCertificate;
 		String studentPic = "studentPic" + docDto.getFormId();
@@ -121,6 +121,14 @@ public class StudentController {
 		String targetFile5 = docUploadLocation + class12Marksheet;
 		String aadharCard = "aadharCard" + docDto.getFormId();
 		String targetFile6 = docUploadLocation + aadharCard;
+		String bankPassbook = "bankPassbook" +docDto.getBankPassbook();
+		String targetFile7 = docUploadLocation + bankPassbook;
+		String instituteIdCard = "instituteIdCard" + docDto.getInstituteIdCard();
+		String targetFile8 = docUploadLocation +instituteIdCard;
+		String casteIncomeCertificate = "casteIncomeCertificate" + docDto.getCasteIncomeCertificate();
+		String targetFile9 = docUploadLocation + casteIncomeCertificate;
+		String feeReceiptOfCurrentYear = "feeReceiptOfCurrentYear" + docDto.getFeeReceiptOfCurrentYear();
+		String targetFile10 = docUploadLocation + feeReceiptOfCurrentYear;
 
 		try {
 			FileCopyUtils.copy(docDto.getDomicileCertificate().getInputStream(), new FileOutputStream(targetFile1));
@@ -129,6 +137,10 @@ public class StudentController {
 			FileCopyUtils.copy(docDto.getClass10Marksheet().getInputStream(), new FileOutputStream(targetFile4));
 			FileCopyUtils.copy(docDto.getClass12Marksheet().getInputStream(), new FileOutputStream(targetFile5));
 			FileCopyUtils.copy(docDto.getAadharCard().getInputStream(), new FileOutputStream(targetFile6));
+			FileCopyUtils.copy(docDto.getBankPassbook().getInputStream(), new FileOutputStream(targetFile7));
+			FileCopyUtils.copy(docDto.getInstituteIdCard().getInputStream(), new FileOutputStream(targetFile8));
+			FileCopyUtils.copy(docDto.getCasteIncomeCertificate().getInputStream(), new FileOutputStream(targetFile9));
+			FileCopyUtils.copy(docDto.getFeeReceiptOfCurrentYear().getInputStream(), new FileOutputStream(targetFile10));
 		} catch (IOException e) {
 			e.printStackTrace();
 			Status status = new Status();
@@ -144,6 +156,10 @@ public class StudentController {
 		form.setClass10Marksheet(class10Marksheet);
 		form.setClass12Marksheet(class12Marksheet);
 		form.setAadharCard(aadharCard);
+		form.setBankPassbook(bankPassbook);
+		form.setInstituteIdCard(instituteIdCard);
+		form.setCasteIncomeCertificate(casteIncomeCertificate);
+		form.setFeeReceiptOfCurrentYear(feeReceiptOfCurrentYear);
 		nspService.updateAScholarshipForm(form);
 
 		Status status = new Status();
