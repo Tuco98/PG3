@@ -122,4 +122,5 @@ public interface NspRepository {
 	public List<ScholarshipForm> fetchFormsOfAnInstituteWithInstituteStatus(long instituteId, String status);
 	public List<ScholarshipForm> fetchFormsUsingNodalStatus(String status);
 	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status);
+	public long fetchFormByStudentId(long studentId);
 }

@@ -92,6 +92,6 @@ public interface NspService {
 	
 	public String instituteForgotPassword(long instituteId,String email);
 	
-	
+	public long fetchFormByStudentId(long studentId);
 	public long findFormByStudentId(long studentId);
 }

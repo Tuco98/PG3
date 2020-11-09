@@ -451,4 +451,9 @@ public class NspServiceImpl implements NspService {
 		
 	}
 
+	@Override
+	public long fetchFormByStudentId(long studentId) {
+		return nspRepo.fetchFormByStudentId(studentId);
+	}
+
 }

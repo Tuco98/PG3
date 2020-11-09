@@ -229,4 +229,13 @@ public class NspRepositoryImpl implements NspRepository {
                 .setParameter("id", studentId)
                 .getSingleResult();
 	}
+
+	@Override
+	public long fetchFormByStudentId(long studentId) {
+		String jpql="select sc.formId from ScholarshipForm sc where sc.student.studentAadhaarNumber=:num";
+		Query query=em.createQuery(jpql, Long.class);
+		query.setParameter("num", studentId);
+		
+		return (long) query.getResultList().stream().findFirst().orElse(null);
+	}
 }
