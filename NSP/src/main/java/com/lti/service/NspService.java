@@ -89,4 +89,6 @@ public interface NspService {
 	public List<ScholarshipForm> fetchFormsUsingMinistryStatus(String status);
 	
 	public String studentForgotPassword(long studentId, String email);
+	
+	public String instituteForgotPassword(long instituteId,String email);
 }

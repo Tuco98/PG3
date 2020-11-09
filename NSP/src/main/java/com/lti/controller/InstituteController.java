@@ -123,4 +123,13 @@ public class InstituteController {
 	//forgot Password
 	//fetch profile
 
+	@PostMapping("/instituteForgotPassword")
+    public String instituteForgotPassword(@RequestParam("instituteId") long instituteId,@RequestParam("email") String email) {
+        try {
+            return nspService.instituteForgotPassword(instituteId, email);
+        }
+        catch (NspServiceException e) {
+            return e.getMessage();
+        }
+    }
 }
