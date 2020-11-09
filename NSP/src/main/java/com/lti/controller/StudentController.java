@@ -107,8 +107,9 @@ public class StudentController {
 	}
 
 	@PostMapping("/docs-upload")
+	@CrossOrigin
 	public Status upload(DocumentUploadDto docDto) {
-		String docUploadLocation = "G:/uploads/";
+		String docUploadLocation = "D:/uploads/";
 		String domicileCertificate = "domicileCertificate" + docDto.getFormId();
 		String targetFile1 = docUploadLocation + domicileCertificate;
 		String studentPic = "studentPic" + docDto.getFormId();
