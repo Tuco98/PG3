@@ -444,4 +444,11 @@ public class NspServiceImpl implements NspService {
         }
     }
 
+	@Override
+	public long findFormByStudentId(long studentId) {
+		
+		return nspRepo.findAStudentById(studentId).getForm().getFormId();
+		
+	}
+
 }

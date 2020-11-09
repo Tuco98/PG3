@@ -197,5 +197,10 @@ public class StudentController {
 
 	// forgot Password
 	// checkFormStatus
+	
+	@GetMapping("/findFormByStudentId")
+	public long findScholarshipFormByStudentId(@RequestParam("studentId") long studentId, HttpServletRequest request) {
+		return nspService.findFormByStudentId(studentId);
+	}
 
 }
