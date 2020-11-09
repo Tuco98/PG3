@@ -126,4 +126,10 @@ public class NodalController {
         Nodal nd=nspService.getANodalById(nodalUid);
         return nd;
     }
+	
+	@GetMapping("/fetchScholarshipFormByNodal")
+    public ScholarshipForm fetchScholarshipForm(@RequestParam("formId") long formId, HttpServletRequest request) {
+        ScholarshipForm form=nspService.getAScholarshipFormById(formId);
+        return form;
+    }
 }

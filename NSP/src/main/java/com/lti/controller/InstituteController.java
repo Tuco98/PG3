@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.InsLoginStatus;
 import com.lti.dto.InstituteLoginDto;
+import com.lti.dto.NodalLoginStatus;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 
@@ -132,4 +133,53 @@ public class InstituteController {
             return e.getMessage();
         }
     }
+	
+	@PostMapping("/instituteUpdatesForm")
+	public Status instituteUpdatesForm(@RequestParam("formId") long formId, @RequestParam("status") String status) {
+		try {
+			ScholarshipForm form = nspService.getAScholarshipFormById(formId);
+			nspService.instituteUpdatesAForm(form, status);
+			//Institute ins = nspService.getAnInstituteById(id);
+			Status status1 = new Status();
+			status1.setStatus(StatusType.SUCCESS);
+			status1.setMessage("Updation Successful!");
+			
+			return status1;
+		}
+		catch(NspServiceException e) {
+			Status status2 = new Status();
+			status2.setStatus(StatusType.FAILURE);
+			status2.setMessage(e.getMessage());
+			return status2;
+		}
+	}
+	
+	@PostMapping("/instituteUpdatesStudent")
+	public Status instituteUpdatesStudent(@RequestParam("studentId") long studentId, @RequestParam("status") String status) {
+		try {
+			Student student = nspService.getAStudentById(studentId);
+			nspService.instituteUpdatesAStudentStatus(student, status);
+			//Institute ins = nspService.getAnInstituteById(id);
+			Status status1 = new Status();
+			status1.setStatus(StatusType.SUCCESS);
+			status1.setMessage("Updation Successful!");
+			
+			return status1;
+		}
+		catch(NspServiceException e) {
+			Status status2 = new Status();
+			status2.setStatus(StatusType.FAILURE);
+			status2.setMessage(e.getMessage());
+			return status2;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

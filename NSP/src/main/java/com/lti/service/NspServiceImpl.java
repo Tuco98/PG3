@@ -181,14 +181,17 @@ public class NspServiceImpl implements NspService {
 //		
 		List<Student> st = ins.getStudents();
 
-		/*
-		 * for (Student student : students) { if
-		 * (student.getStudentStatus().equals(status) &&
-		 * (student.getInstitute().getInstituteId() == instituteId)) { // added null
-		 * else getting infinite loop // student.setInstitute(null); st.add(student); }
-		 * }
-		 */
-		return st;
+		
+		List<Student> st2 = new ArrayList<>();
+
+        for(Student s: st) {
+            if(s.getStudentStatus().equals(status)) {
+                st2.add(s);
+            }
+        }
+
+
+        return st2;
 	}
 
 	@Override
