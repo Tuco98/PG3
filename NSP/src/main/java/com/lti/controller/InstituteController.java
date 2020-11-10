@@ -1,10 +1,13 @@
 package com.lti.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.InsLoginStatus;
+import com.lti.dto.InstituteDocUploadDto;
 import com.lti.dto.InstituteLoginDto;
 import com.lti.dto.NodalLoginStatus;
 import com.lti.dto.Status;
@@ -172,6 +176,39 @@ public class InstituteController {
 			status2.setMessage(e.getMessage());
 			return status2;
 		}
+	}
+	
+	@GetMapping("/insDocUpload")
+	@CrossOrigin
+	public Status upload(InstituteDocUploadDto docDto) {
+		String docUploadLocation = "G:/uploads/";
+		String registrationCertificate = "registrationCertificate" + docDto.getInstituteId()+docDto.getRegistrationCertificate().getOriginalFilename();
+		String targetFile1 = docUploadLocation + registrationCertificate;
+		String affiliationCertificate = "affiliationCertificate" + docDto.getInstituteId()+docDto.getAffiliationCertificate().getOriginalFilename();
+		String targetFile2 = docUploadLocation + affiliationCertificate;
+		
+		try {
+			FileCopyUtils.copy(docDto.getRegistrationCertificate().getInputStream(), new FileOutputStream(targetFile1));
+			FileCopyUtils.copy(docDto.getAffiliationCertificate().getInputStream(), new FileOutputStream(targetFile2));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			Status status = new Status();
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage(e.getMessage());
+			return status;
+		}
+		
+		Institute institute=nspService.getAnInstituteById(docDto.getInstituteId());
+		institute.setAffiliationCertificate(affiliationCertificate);
+		institute.setRegistrationCertificate(registrationCertificate);
+		nspService.updateAnInstitute(institute);
+		
+		Status status = new Status();
+		status.setStatus(StatusType.SUCCESS);
+		status.setMessage("Uploaded!");
+		return status;
+	
 	}
 	
 }

@@ -101,4 +101,6 @@ public interface NspService {
 	
 	public String ministryForgotPassword(String ministryId, String email);
 	
+	public void updateAnInstitute(Institute institute);
+	
 }

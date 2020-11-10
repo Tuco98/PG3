@@ -88,6 +88,22 @@ public class Institute {
 	@OneToMany(mappedBy="instituteObj",fetch = FetchType.LAZY,orphanRemoval = true)
 	List<ScholarshipForm> forms;
 	
+	String registrationCertificate;
+	String affiliationCertificate;
+	
+	
+	public String getRegistrationCertificate() {
+		return registrationCertificate;
+	}
+	public void setRegistrationCertificate(String registrationCertificate) {
+		this.registrationCertificate = registrationCertificate;
+	}
+	public String getAffiliationCertificate() {
+		return affiliationCertificate;
+	}
+	public void setAffiliationCertificate(String affiliationCertificate) {
+		this.affiliationCertificate = affiliationCertificate;
+	}
 	public long getInstituteId() {
 		return instituteId;
 	}

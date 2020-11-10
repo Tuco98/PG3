@@ -496,4 +496,10 @@ public class NspServiceImpl implements NspService {
 		return nspRepo.fetchAllNodals();
 	}
 
+	@Override
+	public void updateAnInstitute(Institute institute) {
+		nspRepo.saveAnInstitute(institute);
+		
+	}
+
 }
