@@ -68,7 +68,7 @@ public class StudentController {
 			loginStatus.setStudentName(student.getStudentName());
 			return loginStatus;
 		} catch (NspServiceException e) {
-			InsLoginStatus loginStatus = new InsLoginStatus();
+			StudentLoginStatus loginStatus = new StudentLoginStatus();
 			loginStatus.setStatus(StatusType.FAILURE);
 			loginStatus.setMessage(e.getMessage());
 			return loginStatus;

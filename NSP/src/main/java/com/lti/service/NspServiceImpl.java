@@ -163,7 +163,7 @@ public class NspServiceImpl implements NspService {
 		if (student.getStudentPassword().equals(password)) {
 			return student;
 		} else {
-			return null;
+			throw new NspServiceException("Invalid credentials");
 		}
 
 	}
@@ -454,6 +454,23 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public long fetchFormByStudentId(long studentId) {
 		return nspRepo.fetchFormByStudentId(studentId);
+	}
+
+	@Override
+	public String nodalForgotPassword(int nodalId, String email) {
+		Nodal nd=nspRepo.findANodalById(nodalId);
+		if(nd.getNodalEmail().equals(email)) {
+			
+			String text = "You password is "+nd.getNodalPassword();
+			String subject = "Password for given nodal";
+			emailService.sendEmailForNewRegistration(email, text, subject);
+			return nd.getNodalPassword();
+
+		}
+		else {
+			throw new NspServiceException("Invalid crediantials");
+		}
+		
 	}
 
 }

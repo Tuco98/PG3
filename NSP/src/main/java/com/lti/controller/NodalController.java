@@ -132,4 +132,14 @@ public class NodalController {
         ScholarshipForm form=nspService.getAScholarshipFormById(formId);
         return form;
     }
+	
+	@PostMapping("/nodalForgotPassword")
+	public String nodalForgotPassword(@RequestParam("nodalId") int nodalId,@RequestParam("email") String email) {
+		try {
+			return nspService.nodalForgotPassword(nodalId, email);
+		}
+		catch (NspServiceException e) {
+			return e.getMessage();
+		}
+	}
 }
