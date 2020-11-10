@@ -3,6 +3,7 @@ package com.lti.repository;
 import java.util.List;
 
 import com.lti.entity.Institute;
+import com.lti.entity.Ministry;
 import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
@@ -87,6 +88,7 @@ public interface NspRepository {
 	
 	public boolean isMinistryPresent(int ministryId);
 	public boolean isInstitutePresent(String email);
+	public Ministry findMinistryById(int ministryId);
 	
 	
 	

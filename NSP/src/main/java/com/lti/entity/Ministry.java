@@ -18,6 +18,9 @@ public class Ministry {
 	@Column(name="MinistryPassword")
 	String ministryPassword;
 
+	@Column
+	String Email;
+
 	public String getMinistryUid() {
 		return ministryUid;
 	}
@@ -33,6 +36,13 @@ public class Ministry {
 	public void setMinistryPassword(String ministryPassword) {
 		this.ministryPassword = ministryPassword;
 	}
+	
+	public String getEmail() {
+		return Email;
+	}
 
+	public void setEmail(String email) {
+		Email = email;
+	}
 
 }

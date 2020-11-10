@@ -174,12 +174,4 @@ public class InstituteController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -96,4 +96,6 @@ public interface NspService {
 	public long findFormByStudentId(long studentId);
 	
 	public String nodalForgotPassword(int nodalId,String email);
+	
+	public String ministryForgotPassword(String ministryId, String email);
 }

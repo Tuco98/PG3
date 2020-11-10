@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.entity.Institute;
+import com.lti.entity.Ministry;
 import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
@@ -471,6 +472,23 @@ public class NspServiceImpl implements NspService {
 			throw new NspServiceException("Invalid crediantials");
 		}
 		
+	}
+
+	@Override
+	public String ministryForgotPassword(String ministryId, String email) {
+		String ID = "Admin";
+		String password = "AdminPassword";
+		String Email = "admin@nsp.com";
+		
+		if(ministryId.equals(ID) && Email.equals(email)) {
+			String text = "Your Password is: " + password;
+			String subject = "Password Recovery";
+			emailService.sendEmailForNewRegistration(email, text, subject);
+			return password;
+		}
+		else {
+			throw new NspServiceException("Invalid ID");
+		}
 	}
 
 }

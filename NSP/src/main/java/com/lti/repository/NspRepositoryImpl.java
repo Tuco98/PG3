@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.lti.entity.Institute;
+import com.lti.entity.Ministry;
 import com.lti.entity.Nodal;
 import com.lti.entity.Scheme;
 import com.lti.entity.ScholarshipForm;
@@ -237,5 +238,11 @@ public class NspRepositoryImpl implements NspRepository {
 		query.setParameter("num", studentId);
 		
 		return (long) query.getResultList().stream().findFirst().orElse(null);
+	}
+
+	@Override
+	public Ministry findMinistryById(int ministryId) {
+		// TODO Auto-generated method stub
+		return em.find(Ministry.class, ministryId);
 	}
 }

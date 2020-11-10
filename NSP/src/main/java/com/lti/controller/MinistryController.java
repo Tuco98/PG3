@@ -33,6 +33,9 @@ import com.lti.service.NspService;
 @RestController
 @CrossOrigin
 public class MinistryController {
+	
+	private String ministryUid = "Admin";
+	private String ministryPassword = "AdminPassword";
 
 	@Autowired
 	private NspService nspService;
@@ -40,7 +43,7 @@ public class MinistryController {
 	@PostMapping("/ministryLogin")
 	public Status login(@RequestBody Ministry ministry) {
 		try {
-			if (ministry.getMinistryUid().equals("admin") && ministry.getMinistryPassword().equals("admin")) {
+			if (ministry.getMinistryUid().equals(ministryUid) && ministry.getMinistryPassword().equals(ministryPassword)) {
 				Status status = new Status();
 				status.setStatus(StatusType.SUCCESS);
 				status.setMessage("Login Successful");
@@ -198,5 +201,16 @@ public class MinistryController {
 
 		return form;
 	}
+	
+	@PostMapping("/passwordRecovery")
+	public String passwordRecovery(@RequestParam("ministryId") String ministryId, @RequestParam("email") String email) {
+		try {
+			return nspService.ministryForgotPassword(ministryId, email);
+		}
+		catch(NspServiceException e){
+			return e.getMessage();
+		}
+	}
 
+	
 }
