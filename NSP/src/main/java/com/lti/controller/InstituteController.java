@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.InsLoginStatus;
 import com.lti.dto.InstituteDocUploadDto;
 import com.lti.dto.InstituteLoginDto;
+import com.lti.dto.InstituteRegisterDto;
 import com.lti.dto.NodalLoginStatus;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
@@ -178,10 +179,10 @@ public class InstituteController {
 		}
 	}
 	
-	@GetMapping("/insDocUpload")
+	@PostMapping("/insDocUpload")
 	@CrossOrigin
 	public Status upload(InstituteDocUploadDto docDto) {
-		String docUploadLocation = "G:/uploads/";
+		String docUploadLocation = "d:/uploads/";
 		String registrationCertificate = "registrationCertificate" + docDto.getInstituteId()+docDto.getRegistrationCertificate().getOriginalFilename();
 		String targetFile1 = docUploadLocation + registrationCertificate;
 		String affiliationCertificate = "affiliationCertificate" + docDto.getInstituteId()+docDto.getAffiliationCertificate().getOriginalFilename();
@@ -209,6 +210,25 @@ public class InstituteController {
 		status.setMessage("Uploaded!");
 		return status;
 	
+	}
+	
+	@PostMapping(path = "/registerInstitute2")
+	public InstituteRegisterDto addInstitute2(@RequestBody Institute institute) {
+		try {
+			long id = nspService.registerAnInstitute(institute);
+			
+			InstituteRegisterDto status = new InstituteRegisterDto();
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("Institute registered successfully");
+			status.setInstituteId(id);
+			return status;
+		}
+		catch(NspServiceException e) {
+			InstituteRegisterDto status = new InstituteRegisterDto();
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage(e.getMessage());
+			return status;
+		}
 	}
 	
 }
