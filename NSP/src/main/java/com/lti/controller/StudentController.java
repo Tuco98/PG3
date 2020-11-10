@@ -110,25 +110,25 @@ public class StudentController {
 	@CrossOrigin
 	public Status upload(DocumentUploadDto docDto) {
 		String docUploadLocation = "D:/uploads/";
-		String domicileCertificate = "domicileCertificate" + docDto.getFormId();
+		String domicileCertificate = "domicileCertificate" + docDto.getFormId()+docDto.getDomicileCertificate().getOriginalFilename();
 		String targetFile1 = docUploadLocation + domicileCertificate;
-		String studentPic = "studentPic" + docDto.getFormId();
+		String studentPic = "studentPic" + docDto.getFormId()+docDto.getStudentPic().getOriginalFilename();
 		String targetFile2 = docUploadLocation + studentPic;
-		String prevYearMarksheet = "prevYearMarksheet" + docDto.getFormId();
+		String prevYearMarksheet = "prevYearMarksheet" + docDto.getFormId()+docDto.getPrevYearMarksheet().getOriginalFilename();
 		String targetFile3 = docUploadLocation + prevYearMarksheet;
-		String class10Marksheet = "class10Marksheet" + docDto.getFormId();
+		String class10Marksheet = "class10Marksheet" + docDto.getFormId()+docDto.getClass10Marksheet().getOriginalFilename();
 		String targetFile4 = docUploadLocation + class10Marksheet;
-		String class12Marksheet = "class12Marksheet" + docDto.getFormId();
+		String class12Marksheet = "class12Marksheet" + docDto.getFormId()+docDto.getClass12Marksheet().getOriginalFilename();
 		String targetFile5 = docUploadLocation + class12Marksheet;
-		String aadharCard = "aadharCard" + docDto.getFormId();
+		String aadharCard = "aadharCard" + docDto.getFormId()+docDto.getAadharCard().getOriginalFilename();
 		String targetFile6 = docUploadLocation + aadharCard;
-		String bankPassbook = "bankPassbook" +docDto.getBankPassbook();
+		String bankPassbook = "bankPassbook" +docDto.getFormId()+docDto.getBankPassbook().getOriginalFilename();
 		String targetFile7 = docUploadLocation + bankPassbook;
-		String instituteIdCard = "instituteIdCard" + docDto.getInstituteIdCard();
+		String instituteIdCard = "instituteIdCard" +docDto.getFormId()+ docDto.getInstituteIdCard().getOriginalFilename();
 		String targetFile8 = docUploadLocation +instituteIdCard;
-		String casteIncomeCertificate = "casteIncomeCertificate" + docDto.getCasteIncomeCertificate();
+		String casteIncomeCertificate = "casteIncomeCertificate"+docDto.getFormId() + docDto.getCasteIncomeCertificate().getOriginalFilename();
 		String targetFile9 = docUploadLocation + casteIncomeCertificate;
-		String feeReceiptOfCurrentYear = "feeReceiptOfCurrentYear" + docDto.getFeeReceiptOfCurrentYear();
+		String feeReceiptOfCurrentYear = "feeReceiptOfCurrentYear"+docDto.getFormId() + docDto.getFeeReceiptOfCurrentYear().getOriginalFilename();
 		String targetFile10 = docUploadLocation + feeReceiptOfCurrentYear;
 
 		try {

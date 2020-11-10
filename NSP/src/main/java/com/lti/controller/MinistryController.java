@@ -168,7 +168,7 @@ public class MinistryController {
 		String targetFile10 = tempDownloadPath + form.getInstituteIdCard();
 
 		// the original location where the uploaded images are present
-		String uploadedImagesPath = "G:/uploads/";
+		String uploadedImagesPath = "D:/uploads/";
 		String sourceFile1 = uploadedImagesPath + form.getClass10Marksheet();
 		String sourceFile2 = uploadedImagesPath + form.getClass12Marksheet();
 		String sourceFile3 = uploadedImagesPath + form.getAadharCard();

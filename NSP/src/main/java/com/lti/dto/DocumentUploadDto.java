@@ -39,6 +39,10 @@ public class DocumentUploadDto {
 	public void setFeeReceiptOfCurrentYear(MultipartFile feeReceiptOfCurrentYear) {
 		this.feeReceiptOfCurrentYear = feeReceiptOfCurrentYear;
 	}
+	
+	
+	
+	
 	public long getFormId() {
 		return formId;
 	}
