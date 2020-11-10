@@ -212,5 +212,19 @@ public class MinistryController {
 		}
 	}
 
+	@GetMapping("/viewNodalList")
+	public List<Nodal> viewNodalList() {
+		try {
+			
+			List<Nodal> list = nspService.fetchAllNodals();
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
 	
 }

@@ -59,6 +59,8 @@ public interface NspService {
 	public void nodalUpdatesAForm(ScholarshipForm form, String formStatus);
 
 	public void nodalUpdatesAnInstituteStatus(Institute institute, String status);
+	
+	public List<Nodal> fetchAllNodals();
 
 	// Scholarship form methods
 
@@ -98,4 +100,5 @@ public interface NspService {
 	public String nodalForgotPassword(int nodalId,String email);
 	
 	public String ministryForgotPassword(String ministryId, String email);
+	
 }

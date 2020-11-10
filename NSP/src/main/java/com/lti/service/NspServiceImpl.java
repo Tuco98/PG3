@@ -491,4 +491,9 @@ public class NspServiceImpl implements NspService {
 		}
 	}
 
+	@Override
+	public List<Nodal> fetchAllNodals() {
+		return nspRepo.fetchAllNodals();
+	}
+
 }
