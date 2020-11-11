@@ -260,6 +260,7 @@ public class MinistryController {
 			@RequestParam("status") String status) {
 		try {
 			Nodal nd=nspService.getANodalById(nodalId);
+			nd.setNodalStatus(status);
 			nspService.ministryUpdatesNodalStatus(nd);
 			// Institute ins = nspService.getAnInstituteById(id);
 			Status status1 = new Status();
