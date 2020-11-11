@@ -106,11 +106,41 @@ public class NodalController {
 		}
 	}
 	
+	@GetMapping("/viewFormsByNodalStatus") // new method
+	public List<ScholarshipForm> viewFormsByNodalStatus(@RequestParam("status") String status) {
+		try {
+			
+			List<ScholarshipForm> list = nspService.fetchFormsUsingNodalStatus(status);
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
 	@GetMapping("/viewUnapprovedInstitutesByNodal")
 	public List<Institute> viewUnapprovedInstitutesByNodal() {
 		try {
 			
 			List<Institute> list = nspService.fetchAllInstitutesByNodalStatus("Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@GetMapping("/viewInstitutesByNodalStatus") // new method
+	public List<Institute> viewInstitutesByNodalStatus(@RequestParam("status") String status) {
+		try {
+			
+			List<Institute> list = nspService.fetchAllInstitutesByNodalStatus(status);
 			
 			return list;
 		}

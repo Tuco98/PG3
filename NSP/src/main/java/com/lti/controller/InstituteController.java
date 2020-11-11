@@ -92,11 +92,41 @@ public class InstituteController {
 		}
 	}
 	
+	@GetMapping("/viewStudentsByStatus") //new one
+	public List<Student> viewStudentsByStatus(@RequestParam("instituteId") long instituteId,@RequestParam("status") String status) {
+		try {
+			
+			List<Student> list = nspService.fetchStudentsOfParticularInstituteByStatus(instituteId, status);
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
 	@GetMapping("/viewUnapprovedFormsByInstitute")
 	public List<ScholarshipForm> viewUnapprovedFormsByInstitute(@RequestParam("instituteId") long instituteId) {
 		try {
 			
 			List<ScholarshipForm> list = nspService.fetchFormsOfParticularInstituteByInstituteStatus(instituteId, "Not Approved");
+			
+			return list;
+		}
+		catch(NspServiceException e) {
+			System.out.println(e.getMessage());
+			//asdajas
+			return null;
+		}
+	}
+	
+	@GetMapping("/viewFormsByInstituteStatus") //new one
+	public List<ScholarshipForm> viewFormsByInstituteStatus(@RequestParam("instituteId") long instituteId, @RequestParam("status") String status ) {
+		try {
+			
+			List<ScholarshipForm> list = nspService.fetchFormsOfParticularInstituteByInstituteStatus(instituteId, status);
 			
 			return list;
 		}

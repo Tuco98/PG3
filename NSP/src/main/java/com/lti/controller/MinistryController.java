@@ -130,12 +130,40 @@ public class MinistryController {
 			return null;
 		}
 	}
+	
+	@GetMapping("/viewFormsByMinistryStatus") // new method
+	public List<ScholarshipForm> viewFormsByIMinistryStatus(@RequestParam("status") String status) {
+		try {
+
+			List<ScholarshipForm> list = nspService.fetchFormsUsingMinistryStatus(status);
+
+			return list;
+		} catch (NspServiceException e) {
+			System.out.println(e.getMessage());
+			// asdajas
+			return null;
+		}
+	}
 
 	@GetMapping("/viewUnapprovedInstitutesByMinistry")
 	public List<Institute> viewUnapprovedInstitutesByMinistry() {
 		try {
 
 			List<Institute> list = nspService.fetchAllInstitutesByMinistryStatus("Not Approved");
+
+			return list;
+		} catch (NspServiceException e) {
+			System.out.println(e.getMessage());
+			// asdajas
+			return null;
+		}
+	}
+	
+	@GetMapping("/viewInstitutesByMinistryStatus") // new method
+	public List<Institute> viewInstitutesByMinistryStatus(@RequestParam("status") String status) {
+		try {
+
+			List<Institute> list = nspService.fetchAllInstitutesByMinistryStatus(status);
 
 			return list;
 		} catch (NspServiceException e) {
