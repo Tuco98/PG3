@@ -145,8 +145,8 @@ public class MinistryController {
 		}
 	}
 
-	@GetMapping("/documentsDownload")
-	public ScholarshipForm download(@RequestParam("formId") int id, HttpServletRequest request) {
+	@GetMapping("/fetchFormByFormId")
+	public ScholarshipForm fetchFormByFormId(@RequestParam("formId") int id, HttpServletRequest request) {
 		// fetching customer data from the database
 		ScholarshipForm form = nspService.getAScholarshipFormById(id);
 
@@ -225,6 +225,39 @@ public class MinistryController {
 			//asdajas
 			return null;
 		}
+	}
+	
+	@GetMapping("/insDocumentsDownload")
+	public Institute insDocDownload(@RequestParam("instituteId") long id, HttpServletRequest request) {
+		// fetching customer data from the database
+		Institute institute = nspService.getAnInstituteById(id);
+
+		// reading the project's deployed folder location
+		String projPath = request.getServletContext().getRealPath("/");
+		String tempDownloadPath = projPath + "/downloads/";
+		System.out.println(tempDownloadPath);
+		// creating a folder within the project where we will place the profile pic of
+		// the customer getting fetched
+		File f = new File(tempDownloadPath);
+		if (!f.exists())
+			f.mkdir();
+		String targetFile1 = tempDownloadPath + institute.getAffiliationCertificate();
+		String targetFile2 = tempDownloadPath + institute.getRegistrationCertificate();
+
+		// the original location where the uploaded images are present
+		String uploadedImagesPath = "D:/uploads/";
+		String sourceFile1 = uploadedImagesPath + institute.getAffiliationCertificate();
+		String sourceFile2 = uploadedImagesPath + institute.getRegistrationCertificate();
+
+		try {
+			FileCopyUtils.copy(new File(sourceFile1), new File(targetFile1));
+			FileCopyUtils.copy(new File(sourceFile2), new File(targetFile2));
+		} catch (IOException e) {
+			e.printStackTrace();
+			// maybe for this customer there is no profile pic
+		}
+
+		return institute;
 	}
 	
 }
