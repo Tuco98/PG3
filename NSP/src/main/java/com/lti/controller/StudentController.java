@@ -39,6 +39,9 @@ public class StudentController {
 	public Status addStudent(@RequestParam("institute_id") long insId, @RequestBody Student student) {
 		try {
 			Institute ins = nspService.getAnInstituteById(insId);
+			if(ins == null) {
+				throw new NspServiceException("No such institute exists in our database.");
+			}
 			student.setInstitute(ins);
 			nspService.registerAStudent(student);
 			// Student stu = nspService.getAStudentById(studentId);
@@ -81,6 +84,9 @@ public class StudentController {
 			@RequestBody ScholarshipForm form) {
 		try {
 			Institute ins = nspService.getAnInstituteById(Long.parseLong(instituteId));
+			if(ins == null) {
+				throw new NspServiceException("No such institute exists in our database.");
+			}
 			Student stu = nspService.getAStudentById(studentId);
 
 			form.setSchemeUid(schemeId);
@@ -192,7 +198,7 @@ public class StudentController {
 			Status status=new Status();
 			status.setStatus(StatusType.SUCCESS);
 			String string= nspService.studentForgotPassword(studentId, email);
-			status.setMessage("Your password is "+string);
+			status.setMessage("Your password is send to your registered email id");
 			return status;
 		}
 		catch (NspServiceException e) {

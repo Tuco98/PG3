@@ -1,5 +1,6 @@
 package com.lti.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -121,11 +122,46 @@ public class InstituteController {
 		}
 	}
 	
+//	@GetMapping("/fetchInstituteProfile")
+//    public Institute fetchInstituteProfile(@RequestParam("instituteId") long instituteId, HttpServletRequest request) {
+//        Institute ins=nspService.getAnInstituteById(instituteId);
+//        return ins;
+//    }
+	
 	@GetMapping("/fetchInstituteProfile")
-    public Institute fetchInstituteProfile(@RequestParam("instituteId") long instituteId, HttpServletRequest request) {
-        Institute ins=nspService.getAnInstituteById(instituteId);
-        return ins;
-    }
+	public Institute fetchInstituteProfile(@RequestParam("instituteId") long id, HttpServletRequest request) {
+		// fetching customer data from the database
+		Institute institute = nspService.getAnInstituteById(id);
+
+		// reading the project's deployed folder location
+		String projPath = request.getServletContext().getRealPath("/");
+		String tempDownloadPath = projPath + "/downloads/";
+		System.out.println(tempDownloadPath);
+		// creating a folder within the project where we will place the profile pic of
+		// the customer getting fetched
+		File f = new File(tempDownloadPath);
+		if (!f.exists())
+			f.mkdir();
+		String targetFile1 = tempDownloadPath + institute.getAffiliationCertificate();
+		String targetFile2 = tempDownloadPath + institute.getRegistrationCertificate();
+
+		// the original location where the uploaded images are present
+		String uploadedImagesPath = "D:/uploads/";
+		String sourceFile1 = uploadedImagesPath + institute.getAffiliationCertificate();
+		String sourceFile2 = uploadedImagesPath + institute.getRegistrationCertificate();
+
+		try {
+			FileCopyUtils.copy(new File(sourceFile1), new File(targetFile1));
+			FileCopyUtils.copy(new File(sourceFile2), new File(targetFile2));
+		} catch (IOException e) {
+			e.printStackTrace();
+			// maybe for this customer there is no profile pic
+		}
+
+		return institute;
+	}
+	
+	
 	//forgot Password
 	//fetch profile
 
@@ -134,8 +170,8 @@ public class InstituteController {
 		try {
 			Status status=new Status();
 			status.setStatus(StatusType.SUCCESS);
-			String string= nspService.instituteForgotPassword(instituteId, email);
-			status.setMessage("Your password is "+string);
+			nspService.instituteForgotPassword(instituteId, email);
+			status.setMessage("Your password has been sent to your registered email.");
 			return status;
 		}
 		catch (NspServiceException e) {
