@@ -130,13 +130,20 @@ public class InstituteController {
 	//fetch profile
 
 	@PostMapping("/instituteForgotPassword")
-    public String instituteForgotPassword(@RequestParam("instituteId") long instituteId,@RequestParam("email") String email) {
-        try {
-            return nspService.instituteForgotPassword(instituteId, email);
-        }
-        catch (NspServiceException e) {
-            return e.getMessage();
-        }
+    public Status instituteForgotPassword(@RequestParam("instituteId") long instituteId,@RequestParam("email") String email) {
+		try {
+			Status status=new Status();
+			status.setStatus(StatusType.SUCCESS);
+			String string= nspService.instituteForgotPassword(instituteId, email);
+			status.setMessage("Your password is "+string);
+			return status;
+		}
+		catch (NspServiceException e) {
+			Status status=new Status();
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage(e.getMessage());
+			return status;
+		}
     }
 	
 	@PostMapping("/instituteUpdatesForm")

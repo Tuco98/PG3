@@ -187,12 +187,19 @@ public class StudentController {
 	}
 	
 	@PostMapping("/studentForgotPassword")
-	public String studentForgotPassword(@RequestParam("studentId") long studentId,@RequestParam("email") String email) {
+	public Status studentForgotPassword(@RequestParam("studentId") long studentId,@RequestParam("email") String email) {
 		try {
-			return nspService.studentForgotPassword(studentId, email);
+			Status status=new Status();
+			status.setStatus(StatusType.SUCCESS);
+			String string= nspService.studentForgotPassword(studentId, email);
+			status.setMessage("Your password is "+string);
+			return status;
 		}
 		catch (NspServiceException e) {
-			return e.getMessage();
+			Status status=new Status();
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage(e.getMessage());
+			return status;
 		}
 	}
 
