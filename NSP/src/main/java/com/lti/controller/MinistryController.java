@@ -255,6 +255,26 @@ public class MinistryController {
 		}
 	}
 	
+	@PostMapping("/ministryUpdateNodal")
+	public Status ministryUpdatesNodalStatus(@RequestParam("nodalId") int nodalId,
+			@RequestParam("status") String status) {
+		try {
+			Nodal nd=nspService.getANodalById(nodalId);
+			nspService.ministryUpdatesNodalStatus(nd);
+			// Institute ins = nspService.getAnInstituteById(id);
+			Status status1 = new Status();
+			status1.setStatus(StatusType.SUCCESS);
+			status1.setMessage("Updation Successful!");
+
+			return status1;
+		} catch (NspServiceException e) {
+			Status loginStatus = new Status();
+			loginStatus.setStatus(StatusType.FAILURE);
+			loginStatus.setMessage(e.getMessage());
+			return loginStatus;
+		}
+	}
+	
 	
 	
 }

@@ -198,7 +198,7 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void registerANodal(Nodal nodal) {
 		if (!nspRepo.isNodalPresent(nodal.getNodalUid())) {
-
+			nodal.setNodalStatus("Approved");
 			nspRepo.saveANodal(nodal);
 			System.out.println("Nodal successfully registered");
 		} else {
@@ -221,7 +221,7 @@ public class NspServiceImpl implements NspService {
 		 */
 
 		Nodal nodal = nspRepo.findANodalById(userId);
-		if (nodal.getNodalPassword().equals(password)) {
+		if (nodal.getNodalPassword().equals(password) && nodal.getNodalStatus().equals("Approved")) {
 			return nodal;
 		} else {
 			throw new NspServiceException("Login failed");
@@ -499,6 +499,12 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void updateAnInstitute(Institute institute) {
 		nspRepo.saveAnInstitute(institute);
+		
+	}
+
+	@Override
+	public void ministryUpdatesNodalStatus(Nodal nodal) {
+		nspRepo.saveANodal(nodal);
 		
 	}
 

@@ -103,4 +103,6 @@ public interface NspService {
 	
 	public void updateAnInstitute(Institute institute);
 	
+	public void ministryUpdatesNodalStatus(Nodal nodal);
+	
 }
