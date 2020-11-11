@@ -195,7 +195,7 @@ public class InstituteController {
 	//forgot Password
 	//fetch profile
 
-	@PostMapping("/instituteForgotPassword")
+	@GetMapping("/instituteForgotPassword")
     public Status instituteForgotPassword(@RequestParam("instituteId") long instituteId,@RequestParam("email") String email) {
 		try {
 			Status status=new Status();

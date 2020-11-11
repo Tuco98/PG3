@@ -192,7 +192,7 @@ public class StudentController {
 		return nspService.getAStudentById(studentId).getForm().getStatus();
 	}
 	
-	@PostMapping("/studentForgotPassword")
+	@GetMapping("/studentForgotPassword")
 	public Status studentForgotPassword(@RequestParam("studentId") long studentId,@RequestParam("email") String email) {
 		try {
 			Status status=new Status();
