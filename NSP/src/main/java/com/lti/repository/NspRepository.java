@@ -86,7 +86,8 @@ public interface NspRepository {
 	
 	//public boolean ministryLogin(int userId, String password);
 	
-	public boolean isMinistryPresent(int ministryId);
+	public Ministry ministryLogin(String ministryId, String ministryPassword);
+	//public boolean isMinistryPresent(int ministryId);
 	public boolean isInstitutePresent(String email);
 	public Ministry findMinistryById(int ministryId);
 	

@@ -153,9 +153,16 @@ public class NspRepositoryImpl implements NspRepository {
 	}
 
 	@Override
-	public boolean isMinistryPresent(int ministryId) {
-		return (Integer) em.createQuery("select count(m.id) from Ministry m where m.ministryUid = :id")
-				.setParameter("id", ministryId).getSingleResult() == 1 ? true : false;
+	public Ministry ministryLogin(String ministryId, String ministryPassword) {
+//		return (Integer) em.createQuery("select count(m.id) from Ministry m where m.ministryUid = :id")
+//				.setParameter("id", ministryId).getSingleResult() == 1 ? true : false;
+		
+		String jpql = "select m from Ministry m where m.ministryUid=:id and m.ministryPassword=:psw";
+		Query query = em.createQuery(jpql, Ministry.class);
+		query.setParameter("id", ministryId);
+		query.setParameter("psw", ministryPassword);
+		return (Ministry) query.getSingleResult();
+		
 	}
 
 	@Override

@@ -338,9 +338,23 @@ public class NspServiceImpl implements NspService {
 	}
 
 	@Override
-	public boolean ministryLogin(int userId, String password) {
+	public boolean ministryLogin(String userId, String password) {
 		// TODO Auto-generated method stub
-		return false;
+//		Ministry m = nspRepo.ministryLogin(userId, password);
+//		if(m == null) {
+//			return false;
+//		}
+//		else {
+//			return true;
+//		}
+		
+		try {
+			Ministry m = nspRepo.ministryLogin(userId, password);
+			return true;
+		}catch(Exception e) {
+			throw new NspServiceException("Wrong credentials");
+		}
+		
 	}
 
 	@Override

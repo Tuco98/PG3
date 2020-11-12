@@ -80,7 +80,7 @@ public interface NspService {
 
 	// Ministry methods
 
-	public boolean ministryLogin(int userId, String password);
+	public boolean ministryLogin(String userId, String password);
 
 	public void ministryUpdatesAFormStatus(ScholarshipForm form, String status);
 

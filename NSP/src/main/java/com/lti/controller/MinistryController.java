@@ -43,7 +43,8 @@ public class MinistryController {
 	@PostMapping("/ministryLogin")
 	public Status login(@RequestBody Ministry ministry) {
 		try {
-			if (ministry.getMinistryUid().equals(ministryUid) && ministry.getMinistryPassword().equals(ministryPassword)) {
+			//if (ministry.getMinistryUid().equals(ministryUid) && ministry.getMinistryPassword().equals(ministryPassword)) {
+			if(nspService.ministryLogin(ministry.getMinistryUid(), ministry.getMinistryPassword())) {
 				Status status = new Status();
 				status.setStatus(StatusType.SUCCESS);
 				status.setMessage("Login Successful");
