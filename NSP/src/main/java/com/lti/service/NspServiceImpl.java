@@ -75,12 +75,16 @@ public class NspServiceImpl implements NspService {
 //			return nspRepo.findInstituteByIdAndPassword(userId, password);
 //		}
 		Institute ins = nspRepo.findAnInstituteById(instituteId);
-		if (ins.getInstitutePassword().equals(password) && ins.getInstituteStatus().equals("Approved")) {
-			return ins;
-		} else {
-			throw new NspServiceException("Log in Id is not activated yet");
+		try {
+			if (ins.getInstitutePassword().equals(password) && ins.getInstituteStatus().equals("Approved")) {
+				return ins;
+			}
+			else {
+				throw new NspServiceException("Either Wrong Credentials or Your account is not activated yet!! please contact your state Nodal Office.");
+			}
+		} catch (Exception e) {
+			throw new NspServiceException("Either Wrong Credentials or Your account is not activated yet!! please contact your state Nodal Office.");
 		}
-
 	}
 
 	@Override
@@ -134,7 +138,6 @@ public class NspServiceImpl implements NspService {
 		if (!nspRepo.isStudentPresent(student.getStudentEmail())) {
 			student.setStudentStatus("Not Approved");
 			long id = nspRepo.saveAStudent(student);
-
 			String text = "Successfully registered. Your id is " + id;
 			String subject = "Registration Confirmation";
 			emailService.sendEmailForNewRegistration(student.getStudentEmail(), text, subject);
@@ -160,13 +163,13 @@ public class NspServiceImpl implements NspService {
 //		}
 
 		Student student = nspRepo.findAStudentById(aadhar);
-
+		try {
 		if (student.getStudentPassword().equals(password)) {
 			return student;
-		} else {
-			throw new NspServiceException("Invalid credentials");
+		}}catch (Exception e) {
+			throw new NspServiceException("Invalid Credentials");
 		}
-
+		return null;
 	}
 
 	@Override
@@ -182,17 +185,15 @@ public class NspServiceImpl implements NspService {
 //		
 		List<Student> st = ins.getStudents();
 
-		
 		List<Student> st2 = new ArrayList<>();
 
-        for(Student s: st) {
-            if(s.getStudentStatus().equals(status)) {
-                st2.add(s);
-            }
-        }
+		for (Student s : st) {
+			if (s.getStudentStatus().equals(status)) {
+				st2.add(s);
+			}
+		}
 
-
-        return st2;
+		return st2;
 	}
 
 	@Override
@@ -221,10 +222,16 @@ public class NspServiceImpl implements NspService {
 		 */
 
 		Nodal nodal = nspRepo.findANodalById(userId);
+		try {
 		if (nodal.getNodalPassword().equals(password) && nodal.getNodalStatus().equals("Approved")) {
 			return nodal;
-		} else {
-			throw new NspServiceException("Login failed");
+		}
+		else {
+			throw new NspServiceException("Invalid Credentials");
+		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new NspServiceException("Invalid Credentials");
 		}
 	}
 
@@ -347,14 +354,14 @@ public class NspServiceImpl implements NspService {
 //		else {
 //			return true;
 //		}
-		
+
 		try {
 			Ministry m = nspRepo.ministryLogin(userId, password);
 			return true;
-		}catch(Exception e) {
-			throw new NspServiceException("Wrong credentials");
+		} catch (Exception e) {
+			throw new NspServiceException("Invalid Credentials");
 		}
-		
+
 	}
 
 	@Override
@@ -431,39 +438,37 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public String studentForgotPassword(long studentId, String email) {
-		Student st=nspRepo.findAStudentById(studentId);
-		if(st.getStudentEmail().equals(email)) {
-			String text = "You password is "+st.getStudentPassword();
+		Student st = nspRepo.findAStudentById(studentId);
+		if (st.getStudentEmail().equals(email)) {
+			String text = "You password is " + st.getStudentPassword();
 			String subject = "Password for given aadhar";
 			emailService.sendEmailForNewRegistration(email, text, subject);
 			return st.getStudentPassword();
 
-		}
-		else {
+		} else {
 			throw new NspServiceException("Invalid crediantials");
 		}
-		
+
 	}
 
 	@Override
-    public String instituteForgotPassword(long instituteId, String email) {
-        Institute ins=nspRepo.findAnInstituteById(instituteId);
-        if(ins.getInstituteEmail().equals(email)) {
-            String text="Your password is "+ins.getInstitutePassword();
-            String subject="Password for your institute login";
-            emailService.sendEmailForNewRegistration(email, text, subject);
-            return ins.getInstitutePassword();
-        }
-        else {
-            throw new NspServiceException("Invalid credentials");
-        }
-    }
+	public String instituteForgotPassword(long instituteId, String email) {
+		Institute ins = nspRepo.findAnInstituteById(instituteId);
+		if (ins.getInstituteEmail().equals(email)) {
+			String text = "Your password is " + ins.getInstitutePassword();
+			String subject = "Password for your institute login";
+			emailService.sendEmailForNewRegistration(email, text, subject);
+			return ins.getInstitutePassword();
+		} else {
+			throw new NspServiceException("Invalid credentials");
+		}
+	}
 
 	@Override
 	public long findFormByStudentId(long studentId) {
-		
+
 		return nspRepo.findAStudentById(studentId).getForm().getFormId();
-		
+
 	}
 
 	@Override
@@ -473,19 +478,18 @@ public class NspServiceImpl implements NspService {
 
 	@Override
 	public String nodalForgotPassword(int nodalId, String email) {
-		Nodal nd=nspRepo.findANodalById(nodalId);
-		if(nd.getNodalEmail().equals(email)) {
-			
-			String text = "You password is "+nd.getNodalPassword();
+		Nodal nd = nspRepo.findANodalById(nodalId);
+		if (nd.getNodalEmail().equals(email)) {
+
+			String text = "You password is " + nd.getNodalPassword();
 			String subject = "Password for given nodal";
 			emailService.sendEmailForNewRegistration(email, text, subject);
 			return nd.getNodalPassword();
 
-		}
-		else {
+		} else {
 			throw new NspServiceException("Invalid crediantials");
 		}
-		
+
 	}
 
 	@Override
@@ -493,14 +497,13 @@ public class NspServiceImpl implements NspService {
 		String ID = "Admin";
 		String password = "AdminPassword";
 		String Email = "admin@nsp.com";
-		
-		if(ministryId.equals(ID) && Email.equals(email)) {
+
+		if (ministryId.equals(ID) && Email.equals(email)) {
 			String text = "Your Password is: " + password;
 			String subject = "Password Recovery";
 			emailService.sendEmailForNewRegistration(email, text, subject);
 			return password;
-		}
-		else {
+		} else {
 			throw new NspServiceException("Invalid ID");
 		}
 	}
@@ -513,13 +516,13 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void updateAnInstitute(Institute institute) {
 		nspRepo.saveAnInstitute(institute);
-		
+
 	}
 
 	@Override
 	public void ministryUpdatesNodalStatus(Nodal nodal) {
 		nspRepo.saveANodal(nodal);
-		
+
 	}
 
 }
