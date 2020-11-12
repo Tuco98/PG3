@@ -415,7 +415,7 @@ public class NspServiceImpl implements NspService {
 		List<ScholarshipForm> list = nspRepo.fetchAllScholarshipForms();
 		List<ScholarshipForm> forms = new ArrayList<>();
 		for (ScholarshipForm sc : list) {
-			if (sc.getNodalVerificationStatus().equals("Not Approved")
+			if (sc.getNodalVerificationStatus().equals("Approved")
 					&& sc.getMinistryVerificationStatus().equals(status)) {
 				forms.add(sc);
 			}
