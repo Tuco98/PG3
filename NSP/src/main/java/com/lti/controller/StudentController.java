@@ -61,6 +61,9 @@ public class StudentController {
 	public Status login(@RequestBody StudentLoginDto loginDto) {
 		try {
 			Student student = nspService.studentLogin(loginDto.getStudentId(), loginDto.getPassword());
+			if(student == null) {
+				throw new NspServiceException("Invalid credentials");
+			}
 			// Institute ins = nspService.getAnInstituteById(id);
 			StudentLoginStatus loginStatus = new StudentLoginStatus();
 			loginStatus.setStatus(StatusType.SUCCESS);

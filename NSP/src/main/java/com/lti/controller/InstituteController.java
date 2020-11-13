@@ -61,6 +61,9 @@ public class InstituteController {
 	public InsLoginStatus login(@RequestBody InstituteLoginDto loginDto) {
 		try {
 			Institute ins= nspService.instituteLogin(loginDto.getInstituteId(), loginDto.getPassword());
+			if(ins == null) {
+				throw new NspServiceException("Invalid credentials or login id not yet activated");
+			}
 			//Institute ins = nspService.getAnInstituteById(id);
 			InsLoginStatus loginStatus = new InsLoginStatus();
 			loginStatus.setStatus(StatusType.SUCCESS);
@@ -69,10 +72,10 @@ public class InstituteController {
 			loginStatus.setInsName(ins.getInstituteName());
 			return loginStatus;
 		}
-		catch(NspServiceException e) {
+		catch(NspServiceException|NullPointerException e) {
 			InsLoginStatus loginStatus = new InsLoginStatus();
 			loginStatus.setStatus(StatusType.FAILURE);
-			loginStatus.setMessage(e.getMessage());
+			loginStatus.setMessage("Invalid credentials or Login ID not yet activated");
 			return loginStatus;
 		}
 	}
