@@ -135,7 +135,10 @@ public class NspServiceImpl implements NspService {
 	@Override
 	public void registerAStudent(Student student) {
 		// TODO Auto-generated method stub
-		if (!nspRepo.isStudentPresent(student.getStudentEmail())) {
+		
+		//nspRepo.findAStudentById(student.getStudentAadharNumber())
+		
+		if (!nspRepo.isStudentPresent(student.getStudentEmail()) && (nspRepo.findAStudentById(student.getStudentAadharNumber())==null)) {
 			student.setStudentStatus("Not Approved");
 			long id = nspRepo.saveAStudent(student);
 			String text = "Successfully registered. Your id is " + id;
